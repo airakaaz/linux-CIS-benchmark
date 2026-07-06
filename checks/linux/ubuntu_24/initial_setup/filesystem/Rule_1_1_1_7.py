@@ -1,5 +1,5 @@
-from core.result import ScanResult
-from core.rule import CISRule, Mode
+from core import ScanResult
+from core import CISRule, Mode
 from utils import kernel_module
 
 
