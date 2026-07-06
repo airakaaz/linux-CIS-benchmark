@@ -1,5 +1,6 @@
 from core.registry import RuleRegistry
 from core.result import ScanResult
+from core.rule import Mode
 
 
 class ScanEngine:
@@ -8,9 +9,12 @@ class ScanEngine:
 
     def run(self) -> list[ScanResult]:
         results: list[ScanResult] = []
+        manual_checks = []
 
-        for rule_cls in self.registry.rules:
-            rule = rule_cls()
-            results.append(rule.check())
+        for rule in self.registry.rules:
+            if rule.mode == Mode.AUTOMATIC:
+                results.append(rule().check())
+            else:
+                manual_checks.append(rule)
 
         return results
