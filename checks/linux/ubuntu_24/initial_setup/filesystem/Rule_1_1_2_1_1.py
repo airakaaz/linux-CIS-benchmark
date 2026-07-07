@@ -1,5 +1,6 @@
 from core import CISRule, ScanResult
-from utils import mount, service
+from utils import service
+from ._Base_1_1_2 import get_mount_options
 
 
 # rewritten cuz it needs to check if the tmp.mount is enabled
@@ -15,7 +16,7 @@ class Rule_1_1_2_1_1(CISRule):
     def check(self) -> ScanResult:
         reasons = []
 
-        options = mount.get_mount_options(self._MOUNT_POINT)
+        options = get_mount_options(self._MOUNT_POINT)
         mounted = options is not None
 
         if not mounted:
