@@ -71,10 +71,10 @@
 
 1.3 Mandatory Access Control
 1.3.1 Configure AppArmor
-[ ] 1.3.1.1 Ensure apparmor packages are installed (Automated)
-[ ] 1.3.1.2 Ensure AppArmor is enabled (Automated)
-[ ] 1.3.1.3 Ensure all AppArmor Profiles are enforcing (Automated)
-[ ] 1.3.1.4 Ensure apparmor_restrict_unprivileged_unconfined is enabled (Automated)
+[x] 0.3.1.1 Ensure apparmor packages are installed (Automated)
+[x] 1.3.1.2 Ensure AppArmor is enabled (Automated)
+[x] 1.3.1.3 Ensure all AppArmor Profiles are enforcing (Automated)
+[x] 1.3.1.4 Ensure apparmor_restrict_unprivileged_unconfined is enabled (Automated)
 
 1.4 Configure Bootloader
 [ ] 1.4.1 Ensure bootloader password is set (Automated)
