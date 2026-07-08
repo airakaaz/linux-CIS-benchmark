@@ -163,13 +163,13 @@
 2.4 Job Schedulers
 2.4.1 Configure cron
 [ ] 2.4.1.1 Ensure cron daemon is enabled and active (Automated)
-[ ] 2.4.1.2 Ensure access to /etc/crontab is configured (Automated)
-[ ] 2.4.1.3 Ensure access to /etc/cron.hourly is configured (Automated)
-[ ] 2.4.1.4 Ensure access to /etc/cron.daily is configured (Automated)
-[ ] 2.4.1.5 Ensure access to /etc/cron.weekly is configured (Automated)
-[ ] 2.4.1.6 Ensure access to /etc/cron.monthly is configured (Automated)
-[ ] 2.4.1.7 Ensure access to /etc/cron.yearly is configured (Automated)
-[ ] 2.4.1.8 Ensure access to /etc/cron.d is configured (Automated)
+[x] 2.4.1.2 Ensure access to /etc/crontab is configured (Automated)
+[x] 2.4.1.3 Ensure access to /etc/cron.hourly is configured (Automated)
+[x] 2.4.1.4 Ensure access to /etc/cron.daily is configured (Automated)
+[x] 2.4.1.5 Ensure access to /etc/cron.weekly is configured (Automated)
+[x] 2.4.1.6 Ensure access to /etc/cron.monthly is configured (Automated)
+[x] 2.4.1.7 Ensure access to /etc/cron.yearly is configured (Automated)
+[x] 2.4.1.8 Ensure access to /etc/cron.d is configured (Automated)
 [ ] 2.4.1.9 Ensure access to crontab is configured (Automated)
 2.4.2 Configure at
 [ ] 2.4.2.1 Ensure access to at is configured (Automated)
