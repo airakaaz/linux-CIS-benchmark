@@ -13,7 +13,17 @@ class ScanEngine:
 
         for rule in self.registry.rules:
             if rule.mode == Mode.AUTOMATIC:
-                results.append(rule().check())
+                try:
+                    results.append(rule().check())
+                except Exception as e:
+                    results.append(
+                        ScanResult(
+                            rule_id=rule.rule_id,
+                            title=rule.title,
+                            passed=False,
+                            message=f"check failed due to Exception: {e}",
+                        )
+                    )
             else:
                 manual_checks.append(rule)
 
