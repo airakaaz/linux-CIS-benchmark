@@ -59,12 +59,12 @@
 [ ] 1.2.1.1 Ensure the source.list and .source files use the Signed-By option (Manual)
 [ ] 1.2.1.2 Ensure weak dependencies are configured (Automated)
 [ ] 1.2.1.3 Ensure access to gpg key files are configured (Automated)
-[ ] 1.2.1.4 Ensure access to /etc/apt/trusted.gpg.d directory is configured (Automated)
-[ ] 1.2.1.5 Ensure access to /etc/apt/auth.conf.d directory is configured (Automated)
-[ ] 1.2.1.6 Ensure access to files in the /etc/apt/auth.conf.d/ directory is configured (Automated)
-[ ] 1.2.1.7 Ensure access to /usr/share/keyrings directory is configured (Automated)
-[ ] 1.2.1.8 Ensure access to /etc/apt/sources.list.d directory is configured (Automated)
-[ ] 1.2.1.9 Ensure access to files in /etc/apt/sources.list.d are configured (Automated)
+[x] 1.2.1.4 Ensure access to /etc/apt/trusted.gpg.d directory is configured (Automated)
+[x] 1.2.1.5 Ensure access to /etc/apt/auth.conf.d directory is configured (Automated)
+[x] 1.2.1.6 Ensure access to files in the /etc/apt/auth.conf.d/ directory is configured (Automated)
+[x] 1.2.1.7 Ensure access to /usr/share/keyrings directory is configured (Automated)
+[x] 1.2.1.8 Ensure access to /etc/apt/sources.list.d directory is configured (Automated)
+[x] 1.2.1.9 Ensure access to files in /etc/apt/sources.list.d are configured (Automated)
 
 1.2.2 Configure Package Updates
 [ ] 1.2.2.1 Ensure updates, patches, and additional security software are installed (Manual)
