@@ -142,12 +142,12 @@
 [ ] 2.1.23 Ensure X window server services are not in use (Automated)
 
 2.2 Configure Client Services
-[ ] 2.2.1 Ensure nis client is not installed (Automated)
-[ ] 2.2.2 Ensure rsh client is not installed (Automated)
-[ ] 2.2.3 Ensure talk client is not installed (Automated)
-[ ] 2.2.4 Ensure telnet client is not installed (Automated)
-[ ] 2.2.5 Ensure ldap client is not installed (Automated)
-[ ] 2.2.6 Ensure ftp client is not installed (Automated)
+[x] 2.2.1 Ensure nis client is not installed (Automated)
+[x] 2.2.2 Ensure rsh client is not installed (Automated)
+[x] 2.2.3 Ensure talk client is not installed (Automated)
+[x] 2.2.4 Ensure telnet client is not installed (Automated)
+[x] 2.2.5 Ensure ldap client is not installed (Automated)
+[x] 2.2.6 Ensure ftp client is not installed (Automated)
 
 2.3 Configure Time Synchronization
 2.3.1 Ensure time synchronization is in use
