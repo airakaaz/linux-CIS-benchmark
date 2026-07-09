@@ -7,13 +7,21 @@ from utils.command import run
 @dataclass(slots=True)
 class packageResult:
     valid: bool
-    anomalies: set[str]
+    anomalies: set[str | tuple[str]]
 
 
-def installed(*packages: str) -> packageResult:
+def installed(*packages: str | tuple[str]) -> packageResult:
     missing = set()
     for package in packages:
-        if not run(f"dpkg-query -W {package}").ok:
+        if type(package) is str:
+            package = tuple(
+                package,
+            )
+        found = False
+        for alt in package:
+            if run(f"dpkg-query -W {alt}").ok:
+                found = True
+        if not found:
             missing.add(package)
 
     return packageResult(valid=not missing, anomalies=missing)
