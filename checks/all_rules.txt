@@ -81,15 +81,15 @@
 [ ] 1.4.2 Ensure access to bootloader config is configured (Automated)
 
 1.5 Configure Additional Process Hardening
-[ ] 1.5.1 Ensure fs.protected_hardlinks is configured (Automated)
-[ ] 1.5.2 Ensure fs.protected_symlinks is configured (Automated)
-[ ] 1.5.3 Ensure kernel.yama.ptrace_scope is configured (Automated)
-[ ] 1.5.4 Ensure fs.suid_dumpable is configured (Automated)
-[ ] 1.5.5 Ensure kernel.dmesg_restrict is configured (Automated)
+[x] 1.5.1 Ensure fs.protected_hardlinks is configured (Automated)
+[x] 1.5.2 Ensure fs.protected_symlinks is configured (Automated)
+[x] 1.5.3 Ensure kernel.yama.ptrace_scope is configured (Automated)
+[x] 1.5.4 Ensure fs.suid_dumpable is configured (Automated)
+[x] 1.5.5 Ensure kernel.dmesg_restrict is configured (Automated)
 [ ] 1.5.6 Ensure prelink is not installed (Automated)
 [ ] 1.5.7 Ensure Automatic Error Reporting is configured (Automated)
-[ ] 1.5.8 Ensure kernel.kptr_restrict is configured (Automated)
-[ ] 1.5.9 Ensure kernel.randomize_va_space is configured (Automated)
+[x] 1.5.8 Ensure kernel.kptr_restrict is configured (Automated)
+[x] 1.5.9 Ensure kernel.randomize_va_space is configured (Automated)
 [ ] 1.5.11 Ensure systemd-coredump ProcessSizeMax is configured (Automated)
 [ ] 1.5.12 Ensure systemd-coredump Storage is configured (Automated)
 
