@@ -22,6 +22,8 @@ from .Rule_3_3_2_3 import Rule_3_3_2_3
 from .Rule_3_3_2_4 import Rule_3_3_2_4
 from .Rule_3_3_2_5 import Rule_3_3_2_5
 from .Rule_3_3_2_6 import Rule_3_3_2_6
+from .Rule_3_3_2_7 import Rule_3_3_2_7
+from .Rule_3_3_2_8 import Rule_3_3_2_8
 
 rules = [
     Rule_3_3_1_1,
@@ -48,4 +50,6 @@ rules = [
     Rule_3_3_2_4,
     Rule_3_3_2_5,
     Rule_3_3_2_6,
+    Rule_3_3_2_7,
+    Rule_3_3_2_8,
 ]
