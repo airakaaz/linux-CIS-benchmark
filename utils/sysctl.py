@@ -11,7 +11,7 @@ class SysctlSetting:
     source: Path | None
     # every (file, value) match found, in systemd's effective-precedence order
     # (index 0 = the one systemd-sysctl actually applies)
-    all_matches: list[tuple[Path, str]] = []
+    all_matches: list[tuple[Path, str]]
 
 
 CONF_FILE_RE = re.compile(r"^\s*#\s*(/\S+\.conf)\s*$")
