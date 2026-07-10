@@ -15,14 +15,21 @@ class CommandResult:
 
 
 def run(command: str) -> CommandResult:
-    result = subprocess.run(
-        shlex.split(command),
-        capture_output=True,
-        text=True,
-    )
+    try:
+        result = subprocess.run(
+            shlex.split(command),
+            capture_output=True,
+            text=True,
+        )
 
-    return CommandResult(
-        stdout=result.stdout.strip(),
-        stderr=result.stderr.strip(),
-        returncode=result.returncode,
-    )
+        return CommandResult(
+            stdout=result.stdout.strip(),
+            stderr=result.stderr.strip(),
+            returncode=result.returncode,
+        )
+    except Exception:
+        return CommandResult(
+            stdout="",
+            stderr="",
+            returncode=1,
+        )
