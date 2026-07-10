@@ -1,7 +1,7 @@
-from ._Base_1_2_1 import DirectoryAccess
+from ._Base_1_2_1 import PathAccessRule
 
 
-class Rule_1_2_1_7(DirectoryAccess):
+class Rule_1_2_1_7(PathAccessRule):
     rule_id = "1.2.1.7"
 
     _PATH = "/usr/share/keyrings"

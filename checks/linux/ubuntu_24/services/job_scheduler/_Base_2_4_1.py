@@ -1,1 +1,1 @@
-from checks.templates.directory_access import DirectoryAccess
+from checks.templates.path_access import PathAccessRule

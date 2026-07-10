@@ -1,7 +1,7 @@
-from ._Base_1_2_1 import DirectoryAccess
+from ._Base_1_2_1 import PathAccessRule
 
 
-class Rule_1_2_1_6(DirectoryAccess):
+class Rule_1_2_1_6(PathAccessRule):
     rule_id = "1.2.1.6"
 
     _PATH = "/etc/apt/auth.conf.d"

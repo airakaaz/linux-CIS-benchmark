@@ -1,7 +1,7 @@
-from ._Base_7_1 import DirectoryAccess
+from ._Base_7_1 import PathAccessRule
 
 
-class Rule_7_1_5(DirectoryAccess):
+class Rule_7_1_5(PathAccessRule):
     rule_id = "7.1.5"
 
     _PATH = "/etc/shadow"

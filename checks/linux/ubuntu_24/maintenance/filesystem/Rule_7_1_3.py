@@ -1,7 +1,7 @@
-from ._Base_7_1 import DirectoryAccess
+from ._Base_7_1 import PathAccessRule
 
 
-class Rule_7_1_3(DirectoryAccess):
+class Rule_7_1_3(PathAccessRule):
     rule_id = "7.1.3"
 
     _PATH = "/etc/group"

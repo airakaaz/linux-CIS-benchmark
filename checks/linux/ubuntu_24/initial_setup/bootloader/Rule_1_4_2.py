@@ -1,7 +1,7 @@
-from checks.templates.directory_access import DirectoryAccess
+from checks.templates.path_access import PathAccessRule
 
 
-class Rule_1_4_2(DirectoryAccess):
+class Rule_1_4_2(PathAccessRule):
     rule_id = "1.4.2"
     title = "Ensure access to bootloader config is configured"
 

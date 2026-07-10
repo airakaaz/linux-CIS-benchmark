@@ -1,7 +1,7 @@
-from ._Base_2_4_1 import DirectoryAccess
+from ._Base_2_4_1 import PathAccessRule
 
 
-class Rule_2_4_1_2(DirectoryAccess):
+class Rule_2_4_1_2(PathAccessRule):
     rule_id = "2.4.1.2"
 
     _PATH = "/etc/crontab"

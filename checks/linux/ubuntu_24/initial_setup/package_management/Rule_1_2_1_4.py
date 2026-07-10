@@ -1,7 +1,7 @@
-from ._Base_1_2_1 import DirectoryAccess
+from ._Base_1_2_1 import PathAccessRule
 
 
-class Rule_1_2_1_4(DirectoryAccess):
+class Rule_1_2_1_4(PathAccessRule):
     rule_id = "1.2.1.4"
 
     _PATH = "/etc/apt/trusted.gpg.d"
