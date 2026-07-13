@@ -3,6 +3,7 @@ from pathlib import Path
 import re
 
 from utils.command import run
+from utils import systemd
 
 
 @dataclass(slots=True)
@@ -12,25 +13,6 @@ class SysctlSetting:
     # every (file, value) match found, in systemd's effective-precedence order
     # (index 0 = the one systemd-sysctl actually applies)
     all_matches: list[tuple[Path, str]]
-
-
-CONF_FILE_RE = re.compile(r"^\s*#\s*(/\S+\.conf)\s*$")
-
-SYSTEMD_SYSCTL_CANDIDATES = (
-    Path("/lib/systemd/systemd-sysctl"),
-    Path("/usr/lib/systemd/systemd-sysctl"),
-)
-
-
-def _find_systemd_sysctl() -> Path | None:
-    for candidate in SYSTEMD_SYSCTL_CANDIDATES:
-        try:
-            resolved = candidate.resolve()
-        except OSError:
-            continue
-        if resolved.is_file():
-            return resolved
-    return None
 
 
 def get_ufw_sysctl_file() -> Path | None:
@@ -44,45 +26,6 @@ def get_ufw_sysctl_file() -> Path | None:
                 path = Path(raw)
                 return path if path.is_file() else None
     return None
-
-
-def get_effective_config_files() -> list[Path]:
-    """
-    Ask systemd-sysctl itself which config files are in effect and in what
-    order, instead of re-implementing directory precedence/masking by hand.
-
-    `systemd-sysctl --cat-config` prints each active file preceded by a
-    "# /path/to/file.conf" header line, already resolved for precedence
-    (/etc > /run > /usr/local/lib > /usr/lib > /lib) and masking
-    (a same-named file higher in that order disables lower ones).
-
-    We read the header lines in reverse (like `tac` in the bash audit) so
-    that the first file we return is the one whose value actually wins.
-    """
-    binary = _find_systemd_sysctl()
-    if binary is None:
-        return []
-
-    result = run(f"{str(binary)} --cat-config")
-    if not result.ok:
-        return []
-
-    files: list[Path] = []
-    seen: set[str] = set()
-    for line in reversed(result.stdout.splitlines()):
-        match = CONF_FILE_RE.match(line)
-        if not match:
-            continue
-        candidate = Path(match.group(1))
-        try:
-            resolved = candidate.resolve()
-        except OSError:
-            continue
-        key = str(resolved)
-        if key not in seen and resolved.is_file():
-            seen.add(key)
-            files.append(resolved)
-    return files
 
 
 def get(parameter: str) -> str | None:
@@ -127,7 +70,7 @@ def get_persistent(parameter: str) -> SysctlSetting:
     pattern = re.compile(rf"^\s*{re.escape(parameter)}\s*=\s*(\S+)")
     all_matches: list[tuple[Path, str]] = []
 
-    for file in get_effective_config_files():
+    for file in systemd.effective_config_files("systemd-sysctl", "--cat-config"):
         value = _last_match_in_file(pattern, file)
         if value is not None:
             all_matches.append((file, value))
