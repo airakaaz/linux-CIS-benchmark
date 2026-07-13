@@ -106,13 +106,13 @@
 [x] 1.6.10 Ensure access to sshd warning banner is configured (Automated)
 
 1.7 Configure GNOME Display Manager
-[ ] 1.7.1 Ensure GDM login banner is configured (Automated)
-[ ] 1.7.2 Ensure GDM disable-user-list is configured (Automated)
-[ ] 1.7.3 Ensure GDM screen lock is configured (Automated)
-[ ] 1.7.4 Ensure GDM automount is configured (Automated)
-[ ] 1.7.5 Ensure GDM autorun-never is configured (Automated)
-[ ] 1.7.6 Ensure XDMCP is not enabled (Automated)
-[ ] 1.7.7 Ensure Xwayland is configured (Automated)
+[x] 1.7.1 Ensure GDM login banner is configured (Automated)
+[x] 1.7.2 Ensure GDM disable-user-list is configured (Automated)
+[x] 1.7.3 Ensure GDM screen lock is configured (Automated)
+[x] 1.7.4 Ensure GDM automount is configured (Automated)
+[x] 1.7.5 Ensure GDM autorun-never is configured (Automated)
+[x] 1.7.6 Ensure XDMCP is not enabled (Automated)
+[x] 1.7.7 Ensure Xwayland is configured (Automated)
 
 
 2 Services
