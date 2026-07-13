@@ -1,0 +1,9 @@
+from ._Base_2_1 import PackageNotInstalledRule
+
+
+class Rule_2_1_22(PackageNotInstalledRule):
+    rule_id = "2.1.22"
+    title = "Ensure xinetd services are not in use"
+    _PACKAGES = ("xinetd",)
+    _MODE = "s"
+    _SERVICES = ("xinetd.service",)

@@ -1,0 +1,9 @@
+from ._Base_2_1 import PackageNotInstalledRule
+
+
+class Rule_2_1_15(PackageNotInstalledRule):
+    rule_id = "2.1.15"
+    title = "Ensure rpcbind services are not in use"
+    _PACKAGES = ("rpcbind",)
+    _MODE = "s"
+    _SERVICES = ("rpcbind.socket", "rpcbind.service")
