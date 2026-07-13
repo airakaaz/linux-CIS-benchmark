@@ -1,0 +1,1 @@
+from checks.templates.verify_installed import VerifyInstalledRule
