@@ -46,7 +46,6 @@ class VerifyNotInstalledRule(CISRule):
     mode = Mode.AUTOMATIC
 
     _PACKAGES: set[str]
-    _VERIFY_UPTODATE: bool = False
 
     def check(self) -> ScanResult:
         not_installed = package.not_installed(*self._PACKAGES)
