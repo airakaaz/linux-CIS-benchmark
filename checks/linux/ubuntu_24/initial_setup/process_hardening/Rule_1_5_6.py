@@ -1,4 +1,4 @@
-from templates.verify_installed import VerifyNotInstalledRule
+from checks.templates.verify_installed import VerifyNotInstalledRule
 
 
 class Rule_1_5_6(VerifyNotInstalledRule):
