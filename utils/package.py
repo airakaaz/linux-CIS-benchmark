@@ -7,7 +7,7 @@ from utils.command import run
 @dataclass(slots=True)
 class packageResult:
     valid: bool
-    anomalies: set[str | tuple[str]]
+    anomalies: set[str]
 
 
 def installed(*packages: str | tuple[str]) -> packageResult:
