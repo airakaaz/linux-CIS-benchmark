@@ -1,5 +1,5 @@
-from .kernel_modules import *
-from .kernel_parameters import *
+from . import kernel_modules
+from . import kernel_parameters
 
 rules = []
 rules.extend(kernel_modules.rules)

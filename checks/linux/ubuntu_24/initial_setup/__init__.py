@@ -1,10 +1,10 @@
-from .filesystem import *
-from .package_management import *
-from .apparmor import *
-from .process_hardening import *
-from .bootloader import *
-from .warning_banners import *
-from .gdm import *
+from . import filesystem
+from . import package_management
+from . import apparmor
+from . import process_hardening
+from . import bootloader
+from . import warning_banners
+from . import gdm
 
 rules = []
 rules.extend(filesystem.rules)
