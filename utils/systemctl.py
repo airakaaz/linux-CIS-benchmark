@@ -1,9 +1,13 @@
 from utils.command import run
 
 
-def is_enabled(service: str) -> bool:
+def get_enabled_state(service: str) -> str:
     result = run(f"systemctl is-enabled {service}")
-    return result.stdout.strip().startswith("enabled")
+    return result.stdout.strip()
+
+
+def is_enabled(service: str) -> bool:
+    return get_enabled_state(service).startswith("enabled")
 
 
 def is_active(service: str) -> bool:

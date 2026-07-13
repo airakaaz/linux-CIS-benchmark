@@ -1,5 +1,5 @@
 from core import CISRule, ScanResult
-from utils import service
+from utils import systemctl
 from ._Base_1_1_2 import get_mount_options
 
 
@@ -24,7 +24,7 @@ class Rule_1_1_2_1_1(CISRule):
                 f"'{self._MOUNT_POINT}' is not mounted as tmpfs or a separate partition"
             )
 
-        enabled_state = service.get_enabled_state(self._UNIT)
+        enabled_state = systemctl.get_enabled_state(self._UNIT)
         unit_ok = enabled_state not in self._BAD_UNIT_STATES
 
         if not unit_ok:
