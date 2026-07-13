@@ -1,1 +1,2 @@
 from checks.templates.kernel_parameter import KernelParamRule
+from checks.templates.systemd_conf import SystemdConfOptionRule
