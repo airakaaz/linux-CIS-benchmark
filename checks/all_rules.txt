@@ -11,7 +11,7 @@
 [x] 1.1.1.8 Ensure udf kernel module is not available (Automated)
 [x] 1.1.1.9 Ensure firewire-core kernel module is not available (Automated)
 [x] 1.1.1.10 Ensure usb-storage kernel module is not available (Automated)
-[ ] 1.1.1.11 Ensure unused filesystems kernel modules are not available (Manual)
+[m] 1.1.1.11 Ensure unused filesystems kernel modules are not available (Manual)
 
 1.1.2 Configure Filesystem Partitions
 1.1.2.1 Configure /tmp
@@ -56,7 +56,7 @@
 
 1.2 Package Management
 1.2.1 Configure Package Repositories
-[ ] 1.2.1.1 Ensure the source.list and .source files use the Signed-By option (Manual)
+[m] 1.2.1.1 Ensure the source.list and .source files use the Signed-By option (Manual)
 [ ] 1.2.1.2 Ensure weak dependencies are configured (Automated)
 [ ] 1.2.1.3 Ensure access to gpg key files are configured (Automated)
 [x] 1.2.1.4 Ensure access to /etc/apt/trusted.gpg.d directory is configured (Automated)
@@ -67,7 +67,7 @@
 [x] 1.2.1.9 Ensure access to files in /etc/apt/sources.list.d are configured (Automated)
 
 1.2.2 Configure Package Updates
-[ ] 1.2.2.1 Ensure updates, patches, and additional security software are installed (Manual)
+[m] 1.2.2.1 Ensure updates, patches, and additional security software are installed (Manual)
 
 1.3 Mandatory Access Control
 1.3.1 Configure AppArmor
@@ -77,8 +77,8 @@
 [x] 1.3.1.4 Ensure apparmor_restrict_unprivileged_unconfined is enabled (Automated)
 
 1.4 Configure Bootloader
-[ ] 1.4.1 Ensure bootloader password is set (Automated)
-[ ] 1.4.2 Ensure access to bootloader config is configured (Automated)
+[x] 1.4.1 Ensure bootloader password is set (Automated)
+[x] 1.4.2 Ensure access to bootloader config is configured (Automated)
 
 1.5 Configure Additional Process Hardening
 [x] 1.5.1 Ensure fs.protected_hardlinks is configured (Automated)
@@ -99,11 +99,11 @@
 [ ] 1.6.3 Ensure /etc/issue.net is configured (Automated)
 [ ] 1.6.4 Ensure pam_motd is configured (Automated)
 [ ] 1.6.5 Ensure sshd warning Banner is configured (Automated)
-[ ] 1.6.6 Ensure access to /etc/motd is configured (Automated)
-[ ] 1.6.7 Ensure access to /etc/issue is configured (Automated)
-[ ] 1.6.8 Ensure access to /etc/issue.net is configured (Automated)
-[ ] 1.6.9 Ensure access to pam_motd file is configured (Automated)
-[ ] 1.6.10 Ensure access to sshd warning banner is configured (Automated)
+[x] 1.6.6 Ensure access to /etc/motd is configured (Automated)
+[x] 1.6.7 Ensure access to /etc/issue is configured (Automated)
+[x] 1.6.8 Ensure access to /etc/issue.net is configured (Automated)
+[x] 1.6.9 Ensure access to pam_motd file is configured (Automated)
+[x] 1.6.10 Ensure access to sshd warning banner is configured (Automated)
 
 1.7 Configure GNOME Display Manager
 [ ] 1.7.1 Ensure GDM login banner is configured (Automated)
@@ -120,7 +120,7 @@
 [ ] 2.1.1 Ensure autofs services are not in use (Automated)
 [ ] 2.1.2 Ensure mail transfer agents are configured for local-only mode (Automated)
 [ ] 2.1.3 Ensure avahi daemon services are not in use (Automated)
-[ ] 2.1.4 Ensure only approved services are listening on a network interface (Manual)
+[m] 2.1.4 Ensure only approved services are listening on a network interface (Manual)
 [ ] 2.1.5 Ensure dhcp server services are not in use (Automated)
 [ ] 2.1.6 Ensure web server services are not in use (Automated)
 [ ] 2.1.7 Ensure dns server services are not in use (Automated)
@@ -180,7 +180,7 @@
 
 3 Network
 3.1 Configure Network Devices
-[ ] 3.1.1 Ensure IPv6 status is identified (Manual)
+[m] 3.1.1 Ensure IPv6 status is identified (Manual)
 [ ] 3.1.2 Ensure wireless interfaces are not available (Automated)
 [ ] 3.1.3 Ensure bluetooth services are not in use (Automated)
 
@@ -291,7 +291,7 @@
 5.3.3.2 Configure pam_pwquality module
 [ ] 5.3.3.2.1 Ensure password number of changed characters is configured (Automated)
 [ ] 5.3.3.2.2 Ensure password length is configured (Automated)
-[ ] 5.3.3.2.3 Ensure password complexity is configured (Manual)
+[m] 5.3.3.2.3 Ensure password complexity is configured (Manual)
 [ ] 5.3.3.2.4 Ensure password same consecutive characters is configured (Automated)
 [ ] 5.3.3.2.5 Ensure password maximum sequential characters is configured (Automated)
 [ ] 5.3.3.2.6 Ensure password dictionary check is enabled (Automated)
@@ -312,7 +312,7 @@
 5.4 User Accounts and Environment
 5.4.1 Configure shadow password suite parameters
 [ ] 5.4.1.1 Ensure password expiration is configured (Automated)
-[ ] 5.4.1.2 Ensure minimum password days is configured (Manual)
+[m] 5.4.1.2 Ensure minimum password days is configured (Manual)
 [ ] 5.4.1.3 Ensure password expiration warning days is configured (Automated)
 [ ] 5.4.1.4 Ensure strong password hashing algorithm is configured (Automated)
 [ ] 5.4.1.5 Ensure inactive password lock is configured (Automated)
@@ -341,8 +341,8 @@
 [ ] 6.1.1.1.1 Ensure journald service is active (Automated)
 [ ] 6.1.1.1.2 Ensure systemd-journal-remote service is not in use (Automated)
 [ ] 6.1.1.1.3 Ensure journald is configured to send logs to rsyslog (Automated)
-[ ] 6.1.1.1.4 Ensure journald log file access is configured (Manual)
-[ ] 6.1.1.1.5 Ensure journald log file rotation is configured (Manual)
+[m] 6.1.1.1.4 Ensure journald log file access is configured (Manual)
+[m] 6.1.1.1.5 Ensure journald log file rotation is configured (Manual)
 [ ] 6.1.1.1.6 Ensure journald Storage is configured (Automated)
 [ ] 6.1.1.1.7 Ensure journald Compress is configured (Automated)
 
@@ -350,13 +350,13 @@
 [ ] 6.1.2.1 Ensure rsyslog is installed (Automated)
 [ ] 6.1.2.2 Ensure rsyslog service is enabled and active (Automated)
 [ ] 6.1.2.3 Ensure rsyslog log file creation mode is configured (Automated)
-[ ] 6.1.2.4 Ensure rsyslog logging is configured (Manual)
-[ ] 6.1.2.5 Ensure rsyslog is configured to send logs to a remote log host (Manual)
+[m] 6.1.2.4 Ensure rsyslog logging is configured (Manual)
+[m] 6.1.2.5 Ensure rsyslog is configured to send logs to a remote log host (Manual)
 [ ] 6.1.2.6 Ensure rsyslog is not configured to receive logs from a remote client (Automated)
-[ ] 6.1.2.7 Ensure logrotate is configured (Manual)
+[m] 6.1.2.7 Ensure logrotate is configured (Manual)
 [ ] 6.1.2.8 Ensure rsyslog-gnutls is installed (Automated)
 [ ] 6.1.2.9 Ensure rsyslog forwarding uses gtls (Automated)
-[ ] 6.1.2.10 Ensure rsyslog CA certificates are configured (Manual)
+[m] 6.1.2.10 Ensure rsyslog CA certificates are configured (Manual)
 
 6.1.3 Configure Logfiles
 [ ] 6.1.3.1 Ensure access to all logfiles has been configured (Automated)
@@ -404,7 +404,7 @@
 [ ] 6.2.3.27 Ensure successful and unsuccessful attempts to use the usermod command are collected (Automated)
 [ ] 6.2.3.28 Ensure kernel module loading unloading and modification is collected (Automated)
 [ ] 6.2.3.29 Ensure the audit configuration is immutable (Automated)
-[ ] 6.2.3.30 Ensure the running and on disk configuration is the same (Manual)
+[m] 6.2.3.30 Ensure the running and on disk configuration is the same (Manual)
 
 6.2.4 Configure auditd File Access
 [ ] 6.2.4.1 Ensure the audit log file directory mode is configured (Automated)
@@ -438,7 +438,7 @@
 [ ] 7.1.10 Ensure access to /etc/security/opasswd is configured (Automated)
 [ ] 7.1.11 Ensure world writable files and directories are secured (Automated)
 [ ] 7.1.12 Ensure no files or directories without an owner and a group exist (Automated)
-[ ] 7.1.13 Ensure SUID and SGID files are reviewed (Manual)
+[m] 7.1.13 Ensure SUID and SGID files are reviewed (Manual)
 
 7.2 Local User and Group Settings
 [ ] 7.2.1 Ensure accounts in /etc/passwd use shadowed passwords (Automated)
