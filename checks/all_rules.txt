@@ -94,11 +94,11 @@
 [x] 1.5.12 Ensure systemd-coredump Storage is configured (Automated)
 
 1.6 Configure Command Line Warning Banners
-[ ] 1.6.1 Ensure /etc/motd is configured (Automated)
-[ ] 1.6.2 Ensure /etc/issue is configured (Automated)
-[ ] 1.6.3 Ensure /etc/issue.net is configured (Automated)
-[ ] 1.6.4 Ensure pam_motd is configured (Automated)
-[ ] 1.6.5 Ensure sshd warning Banner is configured (Automated)
+[x] 1.6.1 Ensure /etc/motd is configured (Automated)
+[x] 1.6.2 Ensure /etc/issue is configured (Automated)
+[x] 1.6.3 Ensure /etc/issue.net is configured (Automated)
+[x] 1.6.4 Ensure pam_motd is configured (Automated)
+[x] 1.6.5 Ensure sshd warning Banner is configured (Automated)
 [x] 1.6.6 Ensure access to /etc/motd is configured (Automated)
 [x] 1.6.7 Ensure access to /etc/issue is configured (Automated)
 [x] 1.6.8 Ensure access to /etc/issue.net is configured (Automated)
