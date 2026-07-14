@@ -1,0 +1,1 @@
+from checks.templates.file_content import RequireFileContentRule

@@ -277,10 +277,10 @@
 [x] 5.3.1.4 Ensure latest version of cracklib-runtime is installed (Automated)
 
 5.3.2 Configure pam-auth-update profiles
-[ ] 5.3.2.1 Ensure pam_unix module is enabled (Automated)
-[ ] 5.3.2.2 Ensure pam_faillock module is enabled (Automated)
-[ ] 5.3.2.3 Ensure pam_pwquality module is enabled (Automated)
-[ ] 5.3.2.4 Ensure pam_pwhistory module is enabled (Automated)
+[x] 5.3.2.1 Ensure pam_unix module is enabled (Automated)
+[x] 5.3.2.2 Ensure pam_faillock module is enabled (Automated)
+[x] 5.3.2.3 Ensure pam_pwquality module is enabled (Automated)
+[x] 5.3.2.4 Ensure pam_pwhistory module is enabled (Automated)
 
 5.3.3 Configure PAM Arguments
 5.3.3.1 Configure pam_faillock module

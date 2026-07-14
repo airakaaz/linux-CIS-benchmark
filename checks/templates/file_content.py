@@ -1,11 +1,10 @@
 import re
-from pathlib import Path
 
 from core import CISRule, Mode, ScanResult
 from utils import filesystem
 
 
-class VerifyFileContentRule(CISRule):
+class RequireFileContentRule(CISRule):
     rule_id = ""
     title = ""
     mode = Mode.AUTOMATIC
@@ -14,17 +13,32 @@ class VerifyFileContentRule(CISRule):
     _PATTERN: str
 
     def check(self) -> ScanResult:
-        match = filesystem.contains_regex(self._PATHS, self._PATTERN, re.MULTILINE)
+        matched: list[str] = []
+        missing: list[str] = []
 
-        passed = not match.found
+        for file in self._PATHS:
+            match = filesystem.contains_regex([file], self._PATTERN, re.MULTILINE)
+
+            if match.found:
+                matched.extend(match.locations)
+            else:
+                missing.append(file)
+
+        passed = not missing
 
         return ScanResult(
             rule_id=self.rule_id,
             title=self.title,
             passed=passed,
             message=(
-                "no forbidden content found"
+                "required content found"
                 if passed
-                else f"forbidden content found in ({', '.join(match.locations)})"
+                else f"required content missing in ({', '.join(missing)})"
+            ),
+            expected=f"pattern {self._PATTERN} in ({', '.join(self._PATHS)})",
+            found=(
+                f"matched in ({', '.join(matched)})"
+                if matched
+                else "no matching files"
             ),
         )
