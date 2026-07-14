@@ -17,7 +17,7 @@ def installed(*packages: str | tuple[str]) -> packageResult:
             package = (package,)
         found = False
         for alt in package:
-            if run(f"dpkg-query -W {alt}").ok:
+            if run(f"dpkg-query -s {alt}").ok:
                 found = True
         if not found:
             missing.add(package)
