@@ -1,0 +1,2 @@
+from checks.templates.verify_installed import VerifyInstalledRule
+from checks.templates.service_status import EnabledServiceRule
