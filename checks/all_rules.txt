@@ -407,16 +407,16 @@
 [m] 6.2.3.30 Ensure the running and on disk configuration is the same (Manual)
 
 6.2.4 Configure auditd File Access
-[ ] 6.2.4.1 Ensure the audit log file directory mode is configured (Automated)
-[ ] 6.2.4.2 Ensure audit log files mode is configured (Automated)
-[ ] 6.2.4.3 Ensure audit log files owner is configured (Automated)
-[ ] 6.2.4.4 Ensure audit log files group owner is configured (Automated)
-[ ] 6.2.4.5 Ensure audit configuration files mode is configured (Automated)
-[ ] 6.2.4.6 Ensure audit configuration files owner is configured (Automated)
-[ ] 6.2.4.7 Ensure audit configuration files group owner is configured (Automated)
-[ ] 6.2.4.8 Ensure audit tools mode is configured (Automated)
-[ ] 6.2.4.9 Ensure audit tools owner is configured (Automated)
-[ ] 6.2.4.10 Ensure audit tools group owner is configured (Automated)
+[x] 6.2.4.1 Ensure the audit log file directory mode is configured (Automated)
+[x] 6.2.4.2 Ensure audit log files mode is configured (Automated)
+[x] 6.2.4.3 Ensure audit log files owner is configured (Automated)
+[x] 6.2.4.4 Ensure audit log files group owner is configured (Automated)
+[x] 6.2.4.5 Ensure audit configuration files mode is configured (Automated)
+[x] 6.2.4.6 Ensure audit configuration files owner is configured (Automated)
+[x] 6.2.4.7 Ensure audit configuration files group owner is configured (Automated)
+[x] 6.2.4.8 Ensure audit tools mode is configured (Automated)
+[x] 6.2.4.9 Ensure audit tools owner is configured (Automated)
+[x] 6.2.4.10 Ensure audit tools group owner is configured (Automated)
 
 6.3 Configure Integrity Checking
 [ ] 6.3.1 Ensure AIDE is installed (Automated)
