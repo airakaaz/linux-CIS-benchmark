@@ -8,8 +8,8 @@ class Rule_1_3_1_2(CISRule):
     mode = Mode.AUTOMATIC
 
     def check(self) -> ScanResult:
-        passed = grub.kernel_cmdline_has("apparmor=0")
-        message = "AppArmor is " + "enabled" if passed else "disabled"
+        passed = not grub.kernel_cmdline_has("apparmor=0")
+        message = "AppArmor is " + "not disabled" if passed else "disabled"
 
         return ScanResult(
             rule_id=self.rule_id,
