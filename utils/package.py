@@ -10,8 +10,8 @@ class packageResult:
     anomalies: set[str]
 
 
-def installed(*packages: str | tuple[str]) -> packageResult:
-    missing = set()
+def installed(*packages: str | tuple[str, ...]) -> packageResult:
+    missing: set[str] = set()
     for package in packages:
         if type(package) is str:
             package = (package,)
@@ -20,7 +20,7 @@ def installed(*packages: str | tuple[str]) -> packageResult:
             if run(f"dpkg-query -s {alt}").ok:
                 found = True
         if not found:
-            missing.add(package)
+            missing.add(" or ".join(package))
 
     return packageResult(valid=not missing, anomalies=missing)
 

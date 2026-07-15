@@ -5,6 +5,30 @@ from pathlib import Path
 from utils.command import run
 
 
+def module_symlinks_point_to_kmod() -> bool:
+    target = Path("/bin/kmod")
+    try:
+        target = target.resolve()
+    except OSError:
+        return False
+
+    for path in (
+        "/usr/sbin/lsmod",
+        "/usr/sbin/rmmod",
+        "/usr/sbin/insmod",
+        "/usr/sbin/modinfo",
+        "/usr/sbin/modprobe",
+        "/usr/sbin/depmod",
+    ):
+        candidate = Path(path)
+        try:
+            if not candidate.is_symlink() or candidate.resolve() != target:
+                return False
+        except OSError:
+            return False
+    return True
+
+
 def is_available(module_name: str, mod_type: str) -> bool:
     module_path_part = module_name.replace("-", "/")
     patterns = [

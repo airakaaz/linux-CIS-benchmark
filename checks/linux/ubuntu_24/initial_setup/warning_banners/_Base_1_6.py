@@ -5,7 +5,7 @@ from pathlib import Path
 import re
 
 from utils import filesystem
-from utils.command import run
+from utils import ssh
 
 
 def get_pam_motd_paths() -> list[str]:
@@ -38,16 +38,4 @@ def get_pam_motd_paths() -> list[str]:
 
 
 def get_sshd_banner() -> str:
-    result = run("sshd -T")
-
-    if not result.ok:
-        return ""
-
-    for line in result.stdout.splitlines():
-        if line.startswith("banner "):
-            banner = line.split(maxsplit=1)[1]
-            if banner.lower() == "none":
-                return ""
-            return banner
-
-    return ""
+    return ssh.banner() or ""
