@@ -1,5 +1,8 @@
 from datetime import date
 from pathlib import Path
+import grp
+import os
+import pwd
 import re
 
 from utils.command import run
@@ -22,6 +25,17 @@ def passwd_entries() -> list[list[str]]:
         return [
             line.split(":")
             for line in Path("/etc/passwd").read_text(errors="ignore").splitlines()
+            if line
+        ]
+    except OSError:
+        return []
+
+
+def group_entries() -> list[list[str]]:
+    try:
+        return [
+            line.split(":")
+            for line in Path("/etc/group").read_text(errors="ignore").splitlines()
             if line
         ]
     except OSError:
@@ -227,3 +241,138 @@ def future_password_changes() -> list[str]:
         for entry in password_entries()
         if len(entry) > 2 and entry[2].isdigit() and int(entry[2]) > today
     ]
+
+
+def unshadowed_accounts() -> list[str]:
+    return [entry[0] for entry in passwd_entries() if len(entry) > 1 and entry[1] != "x"]
+
+
+def empty_passwords() -> list[str]:
+    return [entry[0] for entry in shadow_entries() if len(entry) > 1 and entry[1] == ""]
+
+
+def missing_primary_groups() -> list[str]:
+    group_ids = {entry[2] for entry in group_entries() if len(entry) > 2}
+    return [
+        f"{entry[0]}:{entry[3]}"
+        for entry in passwd_entries()
+        if len(entry) > 3 and entry[3] not in group_ids
+    ]
+
+
+def shadow_group_issues() -> list[str]:
+    issues: list[str] = []
+    shadow_gid = None
+    for entry in group_entries():
+        if len(entry) > 3 and entry[0] == "shadow":
+            shadow_gid = entry[2]
+            if entry[3]:
+                issues.append("shadow group has members")
+            break
+    if shadow_gid is not None:
+        issues.extend(
+            f"{entry[0]} has shadow as primary group"
+            for entry in passwd_entries()
+            if len(entry) > 3 and entry[3] == shadow_gid
+        )
+    return issues
+
+
+def duplicate_accounts(index: int, label: str) -> list[str]:
+    entries = passwd_entries() if label in {"UID", "user name"} else group_entries()
+    values: dict[str, list[str]] = {}
+    for entry in entries:
+        if len(entry) > index:
+            values.setdefault(entry[index], []).append(entry[0])
+    return [
+        f"Duplicate {label}: {value} ({', '.join(names)})"
+        for value, names in values.items()
+        if len(names) > 1
+    ]
+
+
+def interactive_users() -> list[tuple[str, str, int]]:
+    shells = valid_shells()
+    users: list[tuple[str, str, int]] = []
+    for entry in passwd_entries():
+        if len(entry) < 7 or entry[6] not in shells or not entry[5]:
+            continue
+        try:
+            gid = int(entry[3])
+        except ValueError:
+            continue
+        users.append((entry[0], entry[5], gid))
+    return users
+
+
+def interactive_home_issues() -> list[str]:
+    issues: list[str] = []
+    for user, home, _gid in interactive_users():
+        path = Path(home)
+        if not path.is_dir():
+            issues.append(f"{user}: home directory {home} does not exist")
+            continue
+        try:
+            info = path.stat()
+            owner = pwd.getpwuid(info.st_uid).pw_name
+        except (OSError, KeyError):
+            issues.append(f"{user}: home directory {home} cannot be inspected")
+            continue
+        if owner != user:
+            issues.append(f"{user}: home directory {home} is owned by {owner}")
+        if info.st_mode & 0o027:
+            issues.append(f"{user}: home directory {home} is more permissive than 750")
+    return issues
+
+
+def _home_dot_files(home: Path):
+    try:
+        root_device = home.stat().st_dev
+    except OSError:
+        return
+    for root, directories, files in os.walk(home, followlinks=False):
+        current = Path(root)
+        directories[:] = [name for name in directories if not (current / name).is_symlink()]
+        try:
+            if current.stat().st_dev != root_device:
+                directories[:] = []
+                continue
+        except OSError:
+            continue
+        for name in files:
+            if name.startswith("."):
+                path = current / name
+                try:
+                    if path.is_file() and path.stat().st_dev == root_device:
+                        yield path
+                except OSError:
+                    continue
+
+
+def interactive_dot_file_issues() -> list[str]:
+    issues: list[str] = []
+    for user, home, gid in interactive_users():
+        try:
+            primary_group = grp.getgrgid(gid).gr_name
+        except KeyError:
+            primary_group = str(gid)
+        for path in _home_dot_files(Path(home)):
+            name = path.name
+            try:
+                info = path.stat()
+                owner = pwd.getpwuid(info.st_uid).pw_name
+                group = grp.getgrgid(info.st_gid).gr_name
+            except (OSError, KeyError):
+                issues.append(f"{user}: {path} cannot be inspected")
+                continue
+            if name in {".forward", ".rhost"}:
+                issues.append(f"{user}: prohibited file {path} exists")
+                continue
+            maximum = 0o600 if name in {".bash_history", ".netrc"} else 0o644
+            if info.st_mode & 0o777 & ~maximum:
+                issues.append(f"{user}: {path} is more permissive than {oct(maximum)}")
+            if owner != user:
+                issues.append(f"{user}: {path} is owned by {owner}")
+            if group != primary_group:
+                issues.append(f"{user}: {path} is group-owned by {group}")
+    return issues

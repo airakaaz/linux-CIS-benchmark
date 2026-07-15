@@ -1,5 +1,5 @@
 from core import CISRule, Mode, ScanResult
-from utils import systemd
+from utils import package, systemd
 
 
 class SystemdConfOptionRule(CISRule):
@@ -11,8 +11,21 @@ class SystemdConfOptionRule(CISRule):
     _SECTION = ""
     _OPTION = ""
     _ALLOW: set[str] = set()
+    _REQUIRED_PACKAGE: str | None = None
 
     def check(self) -> ScanResult:
+        if self._REQUIRED_PACKAGE is not None and package.not_installed(
+            self._REQUIRED_PACKAGE
+        ).valid:
+            return ScanResult(
+                rule_id=self.rule_id,
+                title=self.title,
+                passed=True,
+                message=f"{self._REQUIRED_PACKAGE} is not installed; not applicable.",
+                expected="N/A",
+                found=f"{self._REQUIRED_PACKAGE} not installed",
+            )
+
         setting = systemd.get_option(self._CONF_UNIT, self._SECTION, self._OPTION)
         value = setting.value
         passed = value is not None and value in self._ALLOW

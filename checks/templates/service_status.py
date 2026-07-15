@@ -49,3 +49,57 @@ class EnabledServiceRule(CISRule):
             expected=expected,
             found=found,
         )
+
+
+class ActiveServiceRule(CISRule):
+    rule_id = ""
+    title = ""
+    mode = Mode.AUTOMATIC
+
+    _SERVICE: str = ""
+
+    def check(self) -> ScanResult:
+        active = systemctl.is_active(self._SERVICE)
+        return ScanResult(
+            rule_id=self.rule_id,
+            title=self.title,
+            passed=active,
+            message=(
+                f"service {self._SERVICE} is active"
+                if active
+                else f"service {self._SERVICE} is not active"
+            ),
+            expected=f"{self._SERVICE} is active",
+            found=f"{self._SERVICE} is {'active' if active else 'not active'}",
+        )
+
+
+class DisabledServiceRule(CISRule):
+    rule_id = ""
+    title = ""
+    mode = Mode.AUTOMATIC
+
+    _SERVICES: tuple[str, ...] = ()
+
+    def check(self) -> ScanResult:
+        enabled = [service for service in self._SERVICES if systemctl.is_enabled(service)]
+        active = [service for service in self._SERVICES if systemctl.is_active(service)]
+        passed = not enabled and not active
+        details = [
+            *(f"{service} is enabled" for service in enabled),
+            *(f"{service} is active" for service in active),
+        ]
+        return ScanResult(
+            rule_id=self.rule_id,
+            title=self.title,
+            passed=passed,
+            message=(
+                "remote journal services are not enabled or active"
+                if passed
+                else "; ".join(details)
+            ),
+            expected="; ".join(
+                f"{service} is not enabled and not active" for service in self._SERVICES
+            ),
+            found="none enabled or active" if passed else "; ".join(details),
+        )
