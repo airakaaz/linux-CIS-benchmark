@@ -181,8 +181,8 @@
 3 Network
 3.1 Configure Network Devices
 [m] 3.1.1 Ensure IPv6 status is identified (Manual)
-[ ] 3.1.2 Ensure wireless interfaces are not available (Automated)
-[ ] 3.1.3 Ensure bluetooth services are not in use (Automated)
+[x] 3.1.2 Ensure wireless interfaces are not available (Automated)
+[x] 3.1.3 Ensure bluetooth services are not in use (Automated)
 
 3.2 Configure Network Kernel Modules
 [x] 3.2.1 Ensure atm kernel module is not available (Automated)

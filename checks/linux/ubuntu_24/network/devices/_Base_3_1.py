@@ -1,0 +1,3 @@
+from checks.templates.verify_installed import VerifyNotInstalledRule
+
+PackageNotInstalledRule = VerifyNotInstalledRule
