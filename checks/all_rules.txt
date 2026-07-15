@@ -284,30 +284,30 @@
 
 5.3.3 Configure PAM Arguments
 5.3.3.1 Configure pam_faillock module
-[ ] 5.3.3.1.1 Ensure password failed attempts lockout is configured (Automated)
-[ ] 5.3.3.1.2 Ensure password unlock time is configured (Automated)
-[ ] 5.3.3.1.3 Ensure password failed attempts lockout includes root account (Automated)
+[x] 5.3.3.1.1 Ensure password failed attempts lockout is configured (Automated)
+[x] 5.3.3.1.2 Ensure password unlock time is configured (Automated)
+[x] 5.3.3.1.3 Ensure password failed attempts lockout includes root account (Automated)
 
 5.3.3.2 Configure pam_pwquality module
-[ ] 5.3.3.2.1 Ensure password number of changed characters is configured (Automated)
-[ ] 5.3.3.2.2 Ensure password length is configured (Automated)
+[x] 5.3.3.2.1 Ensure password number of changed characters is configured (Automated)
+[x] 5.3.3.2.2 Ensure password length is configured (Automated)
 [m] 5.3.3.2.3 Ensure password complexity is configured (Manual)
-[ ] 5.3.3.2.4 Ensure password same consecutive characters is configured (Automated)
-[ ] 5.3.3.2.5 Ensure password maximum sequential characters is configured (Automated)
-[ ] 5.3.3.2.6 Ensure password dictionary check is enabled (Automated)
-[ ] 5.3.3.2.7 Ensure password quality checking is enforced (Automated)
-[ ] 5.3.3.2.8 Ensure password quality is enforced for the root user (Automated)
+[x] 5.3.3.2.4 Ensure password same consecutive characters is configured (Automated)
+[x] 5.3.3.2.5 Ensure password maximum sequential characters is configured (Automated)
+[x] 5.3.3.2.6 Ensure password dictionary check is enabled (Automated)
+[x] 5.3.3.2.7 Ensure password quality checking is enforced (Automated)
+[x] 5.3.3.2.8 Ensure password quality is enforced for the root user (Automated)
 
 5.3.3.3 Configure pam_pwhistory module
-[ ] 5.3.3.3.1 Ensure password history remember is configured (Automated)
-[ ] 5.3.3.3.2 Ensure password history is enforced for the root user (Automated)
-[ ] 5.3.3.3.3 Ensure pam_pwhistory includes use_authtok (Automated)
+[x] 5.3.3.3.1 Ensure password history remember is configured (Automated)
+[x] 5.3.3.3.2 Ensure password history is enforced for the root user (Automated)
+[x] 5.3.3.3.3 Ensure pam_pwhistory includes use_authtok (Automated)
 
 5.3.3.4 Configure pam_unix module
-[ ] 5.3.3.4.1 Ensure pam_unix does not include nullok (Automated)
-[ ] 5.3.3.4.2 Ensure pam_unix does not include remember (Automated)
-[ ] 5.3.3.4.3 Ensure pam_unix includes a strong password hashing algorithm (Automated)
-[ ] 5.3.3.4.4 Ensure pam_unix includes use_authtok (Automated)
+[x] 5.3.3.4.1 Ensure pam_unix does not include nullok (Automated)
+[x] 5.3.3.4.2 Ensure pam_unix does not include remember (Automated)
+[x] 5.3.3.4.3 Ensure pam_unix includes a strong password hashing algorithm (Automated)
+[x] 5.3.3.4.4 Ensure pam_unix includes use_authtok (Automated)
 
 5.4 User Accounts and Environment
 5.4.1 Configure shadow password suite parameters
