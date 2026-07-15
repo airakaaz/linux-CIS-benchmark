@@ -7,6 +7,9 @@ from .Rule_7_1_6 import Rule_7_1_6
 from .Rule_7_1_7 import Rule_7_1_7
 from .Rule_7_1_8 import Rule_7_1_8
 from .Rule_7_1_9 import Rule_7_1_9
+from .Rule_7_1_10 import Rule_7_1_10
+from .Rule_7_1_11 import Rule_7_1_11
+from .Rule_7_1_12 import Rule_7_1_12
 
 rules = [
     Rule_7_1_1,
@@ -18,4 +21,7 @@ rules = [
     Rule_7_1_7,
     Rule_7_1_8,
     Rule_7_1_9,
+    Rule_7_1_10,
+    Rule_7_1_11,
+    Rule_7_1_12,
 ]

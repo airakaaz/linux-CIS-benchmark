@@ -435,9 +435,9 @@
 [x] 7.1.7 Ensure access to /etc/gshadow is configured (Automated)
 [x] 7.1.8 Ensure access to /etc/gshadow- is configured (Automated)
 [x] 7.1.9 Ensure access to /etc/shells is configured (Automated)
-[ ] 7.1.10 Ensure access to /etc/security/opasswd is configured (Automated)
-[ ] 7.1.11 Ensure world writable files and directories are secured (Automated)
-[ ] 7.1.12 Ensure no files or directories without an owner and a group exist (Automated)
+[x] 7.1.10 Ensure access to /etc/security/opasswd is configured (Automated)
+[x] 7.1.11 Ensure world writable files and directories are secured (Automated)
+[x] 7.1.12 Ensure no files or directories without an owner and a group exist (Automated)
 [m] 7.1.13 Ensure SUID and SGID files are reviewed (Manual)
 
 7.2 Local User and Group Settings
