@@ -262,12 +262,12 @@
 
 5.2 Configure privilege escalation
 [x] 5.2.1 Ensure sudo is installed (Automated)
-[ ] 5.2.2 Ensure sudo commands use pty (Automated)
-[ ] 5.2.3 Ensure sudo log file exists (Automated)
-[ ] 5.2.4 Ensure users must provide password for escalation (Automated)
-[ ] 5.2.5 Ensure re-authentication for privilege escalation is not disabled globally (Automated)
-[ ] 5.2.6 Ensure sudo timestamp_timeout is configured (Automated)
-[ ] 5.2.7 Ensure access to the su command is restricted (Automated)
+[x] 5.2.2 Ensure sudo commands use pty (Automated)
+[x] 5.2.3 Ensure sudo log file exists (Automated)
+[x] 5.2.4 Ensure users must provide password for escalation (Automated)
+[x] 5.2.5 Ensure re-authentication for privilege escalation is not disabled globally (Automated)
+[x] 5.2.6 Ensure sudo timestamp_timeout is configured (Automated)
+[x] 5.2.7 Ensure access to the su command is restricted (Automated)
 
 5.3 Pluggable Authentication Modules
 5.3.1 Configure PAM software packages
