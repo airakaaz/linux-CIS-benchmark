@@ -5,12 +5,11 @@ from utils import kernel_utils
 class KernelModuleRule(CISRule):
     mode = Mode.AUTOMATIC
 
-    _MODULE = ""
-    rule_id = ""
-    title = ""
+    _MODULE: str = ""
+    _TYPE: str = "fs"
 
     def check(self) -> ScanResult:
-        if not kernel_utils.is_available(self._MODULE, "fs"):
+        if not kernel_utils.is_available(self._MODULE, self._MODULE):
             return ScanResult(
                 rule_id=self.rule_id,
                 title=self.title,
