@@ -71,3 +71,22 @@ def get_config(module_name: str) -> dict:
                 install_disabled = True
 
     return {"blacklisted": blacklisted, "install_disabled": install_disabled}
+
+
+def wireless_modules() -> list[str]:
+    modules: set[str] = set()
+    for wireless in Path("/sys/class/net").glob("*/wireless"):
+        module = wireless.parent / "device/driver/module"
+        try:
+            if module.exists():
+                modules.add(module.resolve().name)
+        except OSError:
+            continue
+    return sorted(modules)
+
+
+def is_load_disabled(module_name: str) -> bool:
+    result = run(f"modprobe -n -v {module_name}")
+    return result.ok and re.search(
+        r"^\s*install\s+/bin/(?:true|false)\b", result.stdout, flags=re.MULTILINE
+    ) is not None
