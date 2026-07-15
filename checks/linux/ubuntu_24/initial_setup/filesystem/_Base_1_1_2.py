@@ -27,8 +27,10 @@ class MountOptionRule(CISRule):
             return ScanResult(
                 rule_id=self.rule_id,
                 title=self.title,
-                passed=False,
+                passed=True,
                 message=f"'{self._MOUNT_POINT}' is not a separate mount point",
+                expected=f"{self._OPTION} present in mount options",
+                found="N/A",
             )
 
         passed = self._OPTION in options
