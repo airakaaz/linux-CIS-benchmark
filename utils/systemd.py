@@ -75,12 +75,17 @@ def _section_lines(content: str, section: str) -> list[str]:
 def _match_option(
     lines: list[str], option: str, allow_commented: bool = False
 ) -> str | None:
-    """Last matching assignment of `option` within the given lines."""
+    """Return the matching option using active or CIS default semantics."""
     if allow_commented:
         pattern = re.compile(
             rf"^(?:\s*#)?\s*{re.escape(option)}\s*=\s*(?P<value>\S+)",
             re.IGNORECASE,
         )
+        for line in lines:
+            match = pattern.match(line)
+            if match:
+                return match.group("value")
+        return None
     else:
         pattern = re.compile(
             rf"^\s*{re.escape(option)}\s*=\s*(?P<value>\S+)", re.IGNORECASE
@@ -95,13 +100,18 @@ def _match_option(
 
 
 def get_option(conf_unit: str, section: str, option: str) -> SystemdConfSetting:
-    for file in effective_config_files("systemd-analyze", "cat-config " + conf_unit):
+    effective_files = effective_config_files(
+        "systemd-analyze", "cat-config " + conf_unit
+    )
+    for file in effective_files:
         content = file.read_text(errors="ignore")
         lines = _section_lines(content, section)
         value = _match_option(lines, option, allow_commented=False)
         if value is not None:
             return SystemdConfSetting(value=value, source=file, is_default=False)
 
+    # Match the CIS audit behavior: when no active override is present, the
+    # main configuration may provide a commented compile-time default.
     for base in (Path("/etc") / conf_unit, Path("/usr/lib") / conf_unit):
         try:
             resolved = base.resolve()
