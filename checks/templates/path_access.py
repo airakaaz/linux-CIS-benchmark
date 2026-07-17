@@ -1,39 +1,7 @@
 from pathlib import Path
 
 from core import CISRule, Mode, ScanResult
-from utils import permissions
-
-
-def check_paths(
-    paths: list[Path],
-    *,
-    max_mode: int | None = None,
-    valid_owners: set[int] | None = None,
-    valid_groups: set[int] | None = None,
-) -> tuple[list[Path], list[Path]]:
-    anomalies: list[Path] = []
-    missing: list[Path] = []
-    valid_owners = {0} if valid_owners is None else valid_owners
-    valid_groups = {0} if valid_groups is None else valid_groups
-
-    for path in paths:
-        if not path.exists():
-            missing.append(path)
-            continue
-
-        valid = True
-        if max_mode is not None:
-            valid = valid and permissions.at_most(
-                permissions.mode(str(path)), max_mode
-            )
-        if valid_owners:
-            valid = valid and permissions.owner(str(path)) in valid_owners
-        if valid_groups:
-            valid = valid and permissions.group(str(path)) in valid_groups
-        if not valid:
-            anomalies.append(path)
-
-    return anomalies, missing
+from utils import filesystem, permissions
 
 
 class MultiPathsAccessRule(CISRule):

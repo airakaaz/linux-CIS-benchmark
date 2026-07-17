@@ -2,8 +2,7 @@ from pathlib import Path
 
 from core import CISRule, Mode, ScanResult
 from checks.templates.file_content import get_os_id
-from checks.templates.path_access import check_paths
-from utils import filesystem, ssh
+from utils import filesystem, permissions, ssh
 
 
 class SshAccessRule(CISRule):
@@ -19,7 +18,7 @@ class SshAccessRule(CISRule):
         expected: str,
         require_paths: bool = True,
     ) -> ScanResult:
-        anomalies, missing = check_paths(paths, max_mode=max_mode)
+        anomalies, missing = permissions.check_paths(paths, max_mode=max_mode)
         issues = [
             *(f"{path} has incorrect mode, owner, or group" for path in anomalies),
             *(f"{path} is missing" for path in missing if require_paths),
@@ -83,7 +82,9 @@ class SshBannerRule(CISRule):
                 else "sshd Banner contains system information."
             ),
             expected="Banner file contains no system-information escape sequences or OS identifier",
-            found=banner if not matched.found else f"matched in {', '.join(matched.locations)}",
+            found=banner
+            if not matched.found
+            else f"matched in {', '.join(matched.locations)}",
         )
 
 

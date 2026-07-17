@@ -3,7 +3,7 @@ import grp
 import re
 
 from core import CISRule, Mode, ScanResult
-from checks.templates.path_access import check_paths
+from utils import permissions
 
 
 AUDITD_CONF = Path("/etc/audit/auditd.conf")
@@ -93,7 +93,7 @@ class AuditdAccessRule(CISRule):
         missing_is_failure: bool = True,
         precondition_failure: str | None = None,
     ) -> ScanResult:
-        anomalies, missing = check_paths(
+        anomalies, missing = permissions.check_paths(
             paths,
             max_mode=max_mode,
             valid_owners=valid_owners,
@@ -113,7 +113,9 @@ class AuditdAccessRule(CISRule):
             rule_id=self.rule_id,
             title=self.title,
             passed=passed,
-            message="audit paths are correctly configured" if passed else "; ".join(issues),
+            message="audit paths are correctly configured"
+            if passed
+            else "; ".join(issues),
             expected=expected,
             found=(
                 ", ".join(issues)
