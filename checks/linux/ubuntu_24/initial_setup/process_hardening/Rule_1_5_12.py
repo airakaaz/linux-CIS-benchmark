@@ -9,3 +9,4 @@ class Rule_1_5_12(SystemdConfOptionRule):
     _SECTION = "Coredump"
     _OPTION = "Storage"
     _ALLOW = {"none"}
+    _REQUIRED_PACKAGE = "systemd-coredump"

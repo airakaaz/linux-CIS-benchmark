@@ -9,3 +9,4 @@ class Rule_1_5_11(SystemdConfOptionRule):
     _SECTION = "Coredump"
     _OPTION = "ProcessSizeMax"
     _ALLOW = {"0"}
+    _REQUIRED_PACKAGE = "systemd-coredump"
