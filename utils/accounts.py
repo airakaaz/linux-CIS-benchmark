@@ -42,6 +42,13 @@ def group_entries() -> list[list[str]]:
         return []
 
 
+def shadow_group_ids() -> set[int]:
+    try:
+        return {grp.getgrnam("shadow").gr_gid, 0}
+    except KeyError:
+        return {0}
+
+
 def shadow_entries() -> list[list[str]]:
     try:
         return [

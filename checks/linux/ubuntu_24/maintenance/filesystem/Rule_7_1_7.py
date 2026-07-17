@@ -1,5 +1,5 @@
 from ._Base_7_1 import PathAccessRule
-import grp
+from utils.accounts import shadow_group_ids
 
 
 class Rule_7_1_7(PathAccessRule):
@@ -7,6 +7,6 @@ class Rule_7_1_7(PathAccessRule):
 
     _PATH = "/etc/gshadow"
     _MAX_ACCESS = 0o640
-    _VALID_GROUPS = {0, grp.getgrnam("shadow").gr_gid}
+    _VALID_GROUPS = shadow_group_ids()
 
     title = f"Ensure access to {_PATH} directory is configured"
