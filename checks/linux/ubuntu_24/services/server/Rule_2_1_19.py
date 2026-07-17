@@ -6,4 +6,5 @@ class Rule_2_1_19(PackageNotInstalledRule):
     title = "Ensure telnet server services are not in use"
     _PACKAGES = ("^telnetd", "^telnetd-ssl")
     _MODE = "l"
+    _ALLOW_AS_DEPENDENCY = True
     _SERVICES = ("inetutils-inetd.service",)

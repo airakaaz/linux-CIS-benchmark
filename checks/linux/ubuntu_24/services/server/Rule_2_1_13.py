@@ -6,4 +6,5 @@ class Rule_2_1_13(PackageNotInstalledRule):
     title = "Ensure nis server services are not in use"
     _PACKAGES = ("ypserv",)
     _MODE = "s"
+    _ALLOW_AS_DEPENDENCY = True
     _SERVICES = ("ypserv.service",)

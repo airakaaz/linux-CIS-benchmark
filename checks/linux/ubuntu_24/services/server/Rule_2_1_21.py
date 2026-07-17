@@ -6,4 +6,5 @@ class Rule_2_1_21(PackageNotInstalledRule):
     title = "Ensure web proxy server services are not in use"
     _PACKAGES = ("squid",)
     _MODE = "s"
+    _ALLOW_AS_DEPENDENCY = True
     _SERVICES = ("squid.service",)

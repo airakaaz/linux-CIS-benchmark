@@ -6,4 +6,5 @@ class Rule_2_1_18(PackageNotInstalledRule):
     title = "Ensure snmp services are not in use"
     _PACKAGES = ("snmpd",)
     _MODE = "s"
+    _ALLOW_AS_DEPENDENCY = True
     _SERVICES = ("snmpd.service",)

@@ -6,4 +6,5 @@ class Rule_2_1_15(PackageNotInstalledRule):
     title = "Ensure rpcbind services are not in use"
     _PACKAGES = ("rpcbind",)
     _MODE = "s"
+    _ALLOW_AS_DEPENDENCY = True
     _SERVICES = ("rpcbind.socket", "rpcbind.service")

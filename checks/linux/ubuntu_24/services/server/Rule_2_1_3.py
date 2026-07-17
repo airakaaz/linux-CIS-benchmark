@@ -6,4 +6,5 @@ class Rule_2_1_3(PackageNotInstalledRule):
     title = "Ensure avahi daemon services are not in use"
     _PACKAGES = ("avahi-daemon",)
     _MODE = "s"
+    _ALLOW_AS_DEPENDENCY = True
     _SERVICES = ("avahi-daemon.service", "avahi-daemon.socket")

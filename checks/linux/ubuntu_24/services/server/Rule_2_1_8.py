@@ -6,4 +6,5 @@ class Rule_2_1_8(PackageNotInstalledRule):
     title = "Ensure ftp server services are not in use"
     _PACKAGES = ("vsftpd",)
     _MODE = "s"
+    _ALLOW_AS_DEPENDENCY = True
     _SERVICES = ("vsftpd.service",)

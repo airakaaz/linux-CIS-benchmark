@@ -6,4 +6,5 @@ class Rule_2_1_10(PackageNotInstalledRule):
     title = "Ensure ldap server services are not in use"
     _PACKAGES = ("slapd",)
     _MODE = "s"
+    _ALLOW_AS_DEPENDENCY = True
     _SERVICES = ("slapd.service",)

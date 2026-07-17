@@ -6,4 +6,5 @@ class Rule_2_1_20(PackageNotInstalledRule):
     title = "Ensure tftp server services are not in use"
     _PACKAGES = ("tftpd-hpa",)
     _MODE = "s"
+    _ALLOW_AS_DEPENDENCY = True
     _SERVICES = ("tftpd-hpa.service",)

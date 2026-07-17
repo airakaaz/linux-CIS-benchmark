@@ -6,4 +6,5 @@ class Rule_2_1_17(PackageNotInstalledRule):
     title = "Ensure samba file server services are not in use"
     _PACKAGES = ("samba",)
     _MODE = "s"
+    _ALLOW_AS_DEPENDENCY = True
     _SERVICES = ("smbd.service",)

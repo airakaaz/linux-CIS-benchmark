@@ -6,4 +6,5 @@ class Rule_2_1_16(PackageNotInstalledRule):
     title = "Ensure rsync services are not in use"
     _PACKAGES = ("rsync",)
     _MODE = "s"
+    _ALLOW_AS_DEPENDENCY = True
     _SERVICES = ("rsync.service",)

@@ -6,6 +6,7 @@ class Rule_2_1_5(PackageNotInstalledRule):
     title = "Ensure dhcp services services are not in use"
     _PACKAGES = ("kea",)
     _MODE = "l"
+    _ALLOW_AS_DEPENDENCY = True
     _SERVICES = (
         "kea-dhcp-ddns-server.service",
         "kea-dhcp4-server.service",

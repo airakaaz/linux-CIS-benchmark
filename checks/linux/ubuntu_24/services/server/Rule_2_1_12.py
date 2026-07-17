@@ -6,4 +6,5 @@ class Rule_2_1_12(PackageNotInstalledRule):
     title = "Ensure network file system services are not in use"
     _PACKAGES = ("nfs-kernel-server",)
     _MODE = "s"
+    _ALLOW_AS_DEPENDENCY = True
     _SERVICES = ("nfs-server.service",)

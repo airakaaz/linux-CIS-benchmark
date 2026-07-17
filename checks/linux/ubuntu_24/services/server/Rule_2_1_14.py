@@ -6,4 +6,5 @@ class Rule_2_1_14(PackageNotInstalledRule):
     title = "Ensure print server services are not in use"
     _PACKAGES = ("cups",)
     _MODE = "s"
+    _ALLOW_AS_DEPENDENCY = True
     _SERVICES = ("cups.socket", "cups.service")

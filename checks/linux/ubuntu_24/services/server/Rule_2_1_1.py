@@ -6,4 +6,5 @@ class Rule_2_1_1(PackageNotInstalledRule):
     title = "Ensure autofs services are not in use"
     _PACKAGES = ("autofs",)
     _MODE = "s"
+    _ALLOW_AS_DEPENDENCY = True
     _SERVICES = ("autofs.service",)

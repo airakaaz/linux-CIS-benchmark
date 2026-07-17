@@ -6,4 +6,5 @@ class Rule_2_1_22(PackageNotInstalledRule):
     title = "Ensure xinetd services are not in use"
     _PACKAGES = ("xinetd",)
     _MODE = "s"
+    _ALLOW_AS_DEPENDENCY = True
     _SERVICES = ("xinetd.service",)
