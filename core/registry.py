@@ -5,15 +5,19 @@ from core.rule import CISRule
 
 class RuleRegistry:
     def __init__(self):
-        self._rules: list[Type[CISRule]] = []
+        self._rules: dict[str, Type[CISRule]] = {}
 
     def register(self, rule: Type[CISRule]) -> None:
-        self._rules.append(rule)
+        self._rules[rule.rule_id] = rule
 
     def register_many(self, *rules: Type[CISRule]) -> None:
-        self._rules.extend(rules)
+        for rule in rules:
+            self._rules[rule.rule_id] = rule
 
     @property
-    def rules(self) -> list[Type[CISRule]]:
+    def rules_dict(self) -> dict[str, Type[CISRule]]:
         return self._rules.copy()
 
+    @property
+    def rules_list(self) -> list[Type[CISRule]]:
+        return list(self._rules.values())
