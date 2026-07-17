@@ -5,10 +5,11 @@ from utils import filesystem, permissions
 
 
 class MultiPathsAccessRule(CISRule):
-    _PATHS: list[str]
+    _PATHS: list[str] | tuple[str, ...]
     _MAX_ACCESS: int
     _VALID_OWNERS: set[int] = {0}
     _VALID_GROUPS: set[int] = {0}
+    _MISSING_FAIL: bool = False
 
     rule_id = ""
     title = ""
@@ -16,23 +17,18 @@ class MultiPathsAccessRule(CISRule):
 
     def check(self) -> ScanResult:
 
-        passed = True
-        anomalies = []
-        for path in self._PATHS:
-            if not Path(path).exists():
-                continue
+        paths = filesystem.resolve_paths(*self._PATHS)
 
-            current_mode = permissions.mode(path)
-            current_owner = permissions.owner(path)
-            current_group = permissions.group(path)
+        anomalies, missing = permissions.check_paths(
+            [Path(p) for p in paths],
+            max_mode=self._MAX_ACCESS,
+            valid_owners=self._VALID_OWNERS,
+            valid_groups=self._VALID_GROUPS,
+        )
 
-            if not (
-                permissions.at_most(current_mode, self._MAX_ACCESS)
-                and current_owner in self._VALID_OWNERS
-                and current_group in self._VALID_GROUPS
-            ):
-                anomalies.append(path)
-                passed = False
+        passed = not anomalies
+        if self._MISSING_FAIL:
+            passed = passed and not missing
 
         return ScanResult(
             rule_id=self.rule_id,
@@ -41,7 +37,7 @@ class MultiPathsAccessRule(CISRule):
             message=(
                 "Permissions are correctly configured."
                 if passed
-                else f"Incorrect ownership or permissions for : ({', '.join(anomalies)})"
+                else f"Incorrect ownership or permissions for : ({', '.join(map(str, anomalies))})"
             ),
         )
 

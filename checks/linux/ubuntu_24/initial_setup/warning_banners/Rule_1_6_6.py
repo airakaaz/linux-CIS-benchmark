@@ -6,7 +6,7 @@ class Rule_1_6_6(MultiPathsAccessRule):
     title = "Ensure access to /etc/motd is configured"
 
     _MAX_ACCESS = 0o644
-    _PATH_PATTERNS = (
+    _PATHS = (
         "/etc/issue",
         "/usr/lib/issue.d/*",
         "/etc/issue.d/*",

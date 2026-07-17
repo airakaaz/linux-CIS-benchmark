@@ -20,15 +20,10 @@ class NoSystemInformationRule(CISRule):
     title = ""
     mode = Mode.AUTOMATIC
 
-    _PATHS: list[str]
-    _PATH_PATTERNS: tuple[str, ...] = ()
+    _PATHS: list[str] | tuple[str, ...]
 
     def get_paths(self) -> list[str]:
-        return (
-            filesystem.resolve_paths(*self._PATH_PATTERNS)
-            if self._PATH_PATTERNS
-            else self._PATHS
-        )
+        return filesystem.resolve_paths(*self._PATHS)
 
     def check(self) -> ScanResult:
         paths = self.get_paths()

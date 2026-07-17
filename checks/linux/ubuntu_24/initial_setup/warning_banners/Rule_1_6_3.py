@@ -5,4 +5,4 @@ class Rule_1_6_3(NoSystemInformationRule):
     rule_id = "1.6.3"
     title = "Ensure /etc/issue.net is configured"
 
-    _PATH_PATTERNS = ("/etc/issue.net",)
+    _PATHS = ("/etc/issue.net",)
