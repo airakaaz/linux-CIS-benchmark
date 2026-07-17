@@ -1,4 +1,3 @@
-from utils import filesystem
 from ._Base_1_6 import MultiPathsAccessRule
 
 
@@ -7,7 +6,7 @@ class Rule_1_6_7(MultiPathsAccessRule):
     title = "Ensure access to /etc/issue is configured"
 
     _MAX_ACCESS = 0o644
-    _PATHS = filesystem.resolve_paths(
+    _PATH_PATTERNS = (
         "/etc/issue",
         "/usr/lib/issue.d/*",
         "/etc/issue.d/*",
