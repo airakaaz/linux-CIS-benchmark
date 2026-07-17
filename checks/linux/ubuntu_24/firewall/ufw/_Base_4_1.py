@@ -31,7 +31,9 @@ class UfwDefaultPolicyRule(CISRule):
 
     def _matches_policy(self, value: str) -> bool:
         return any(
-            re.match(rf"^{re.escape(prefix)}\b", value, flags=re.IGNORECASE)
+            re.search(
+                rf"^(Default: )?{re.escape(prefix)}\b", value, flags=re.IGNORECASE
+            )
             for prefix in self._ALLOWED_PREFIXES
         )
 
