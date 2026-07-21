@@ -1,33 +1,22 @@
+import curses
+
 from checks.linux.ubuntu_24 import ubuntu_24
-from core import ScanEngine, RuleRegistry
+from core import ScanEngine
+from core import ModuleNavigator
 
 
-registry = RuleRegistry()
-registry.register_many(*ubuntu_24.rules)
+def main(stdscr: curses.window):
+    engine = ScanEngine()
+    print("hello")
+    modules = ModuleNavigator(ubuntu_24).run(stdscr)
+    print("hello")
+    engine.register(*modules)
+    print("hello")
 
-engine = ScanEngine(registry)
+    results = engine.run()
+    # return results
 
-i = 0
-while i not in {2, 3}:
-    try:
-        i = int(input("1: all checks\n2: choose checks\n"))
-    except Exception:
-        pass
-
-results = None
-match i:
-    case 1:
-        results = engine.run_all()
-    case 2:
-        while True:
-            rule_id = input("rule(s) id : ")
-            if rule_id:
-                results = engine.run_matching(rule_id)
-                break
-            else:
-                break
-
-if results:
+    # --------------------------------------------------------
     total = len(results)
     passed = 0
 
@@ -45,5 +34,8 @@ if results:
 
     print("=============")
     print(f"score    : {passed}/{total}")
-else:
-    print("engine didn't run, exiting")
+
+
+if __name__ == "__main__":
+    curses.wrapper(main)
+    # print(curses.wrapper(main))
