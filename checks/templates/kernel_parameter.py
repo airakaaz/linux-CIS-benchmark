@@ -38,8 +38,8 @@ class KernelParamRule(CISRule):
                 and ufw_value in self._ALLOW
             )
         else:
-            passed = (loaded in self._ALLOW or loaded is None) and (
-                persistent in self._ALLOW or persistent is None
+            passed = (loaded in self._ALLOW and loaded is not None) and (
+                persistent in self._ALLOW and persistent is not None
             )
 
         expected = (
