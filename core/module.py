@@ -66,16 +66,18 @@ class ModuleNavigator:
         walk(self.root, 0)
         return out
 
-    def _ordered_selected(self):
+    def _return_selected(self):
         out = []
 
         def walk(m):
-            if m in self.selected:
+            if not m.subModules:
                 out.append(m)
-            for s in m.subModules:
-                walk(s)
+            else:
+                for s in m.subModules:
+                    walk(s)
 
-        walk(self.root)
+        for m in self.selected:
+            walk(m)
         return out
 
     def _draw(self, stdscr: curses.window, vis):
@@ -106,13 +108,23 @@ class ModuleNavigator:
 
             line = f" {'  ' * depth} {mark} {mod.name}"
             menu_offset = (w - self.maxwidth) // 2
+
+            if i == self.cursor:
+                stdscr.attron(curses.A_REVERSE)
+            if mod in self.selected:
+                stdscr.attron(curses.A_BOLD)
+
             stdscr.addnstr(
                 row + self.hoffset,
                 menu_offset,
                 line.ljust(self.maxwidth),
                 w - menu_offset - 1,
-                curses.A_REVERSE if i == self.cursor else 0,
             )
+
+            if i == self.cursor:
+                stdscr.attroff(curses.A_REVERSE)
+            if mod in self.selected:
+                stdscr.attroff(curses.A_BOLD)
 
         stdscr.addnstr(footer + 1, 0, "-" * w, w)
         help = "j/k ↑↓ move  |  h/l ←→ collapse/expand  |  Space: select  |  Enter: confirm  |  q: exit"
@@ -163,7 +175,7 @@ class ModuleNavigator:
 
         return False
 
-    def run(self, stdscr) -> list[Module]:
+    def run(self, stdscr: curses.window) -> list[Module]:
         curses.curs_set(0)
         stdscr.keypad(True)
         while True:
@@ -189,6 +201,7 @@ class ModuleNavigator:
                 else:
                     self._select(m)
             elif k in (10, 13, curses.KEY_ENTER) and self.selected:
-                return self._ordered_selected()
+                stdscr.clear()
+                return self._return_selected()
             elif k == ord("q"):
                 exit()
