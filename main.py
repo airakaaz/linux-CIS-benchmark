@@ -13,8 +13,7 @@ def main(stdscr: curses.window):
     engine.register(*modules)
     print("hello")
 
-    results = engine.run()
-    # return results
+    results = engine.run(stdscr)
 
     # --------------------------------------------------------
     total = len(results)
@@ -38,4 +37,3 @@ def main(stdscr: curses.window):
 
 if __name__ == "__main__":
     curses.wrapper(main)
-    # print(curses.wrapper(main))
