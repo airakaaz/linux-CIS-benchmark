@@ -8,7 +8,7 @@ class Module:
     def __init__(
         self,
         name: str,
-        subMods: list[Module] | None = None,
+        subMods: list | None = None,
         rules: list[Type[CISRule]] | None = None,
     ):
         self.name = name
@@ -23,7 +23,7 @@ class Module:
         return r
 
     @property
-    def subModules(self) -> list[Module]:
+    def subModules(self) -> list:
         return self._subModules.copy()
 
 
