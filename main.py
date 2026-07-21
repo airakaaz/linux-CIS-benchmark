@@ -1,4 +1,6 @@
 import curses
+import os
+import sys
 
 from checks.linux.ubuntu_24 import ubuntu_24
 from core import ModuleNavigator, ResultViewer, ScanEngine
@@ -15,4 +17,7 @@ def main(stdscr: curses.window):
 
 
 if __name__ == "__main__":
-    curses.wrapper(main)
+    if os.geteuid() == 0:
+        curses.wrapper(main)
+    else:
+        os.execvp("sudo", ["sudo", sys.executable] + sys.argv)
