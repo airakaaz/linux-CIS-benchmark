@@ -1,3 +1,5 @@
+from core.module import Module
+
 from .Rule_7_2_1 import Rule_7_2_1
 from .Rule_7_2_2 import Rule_7_2_2
 from .Rule_7_2_3 import Rule_7_2_3
@@ -21,3 +23,5 @@ rules = [
     Rule_7_2_9,
     Rule_7_2_10,
 ]
+
+accounts = Module(name="accounts", rules=rules)

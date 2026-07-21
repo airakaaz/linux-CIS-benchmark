@@ -1,4 +1,9 @@
-from . import ufw
+from core.module import Module
 
-rules = []
-rules.extend(ufw.rules)
+from .ufw import ufw
+
+subMods = [
+    ufw,
+]
+
+firewall = Module(name="firewall", subMods=subMods)

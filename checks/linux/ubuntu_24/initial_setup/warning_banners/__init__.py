@@ -1,3 +1,5 @@
+from core.module import Module
+
 from .Rule_1_6_1 import Rule_1_6_1
 from .Rule_1_6_2 import Rule_1_6_2
 from .Rule_1_6_3 import Rule_1_6_3
@@ -21,3 +23,5 @@ rules = [
     Rule_1_6_9,
     Rule_1_6_10,
 ]
+
+warning_banners = Module(name="warning_banners", rules=rules)

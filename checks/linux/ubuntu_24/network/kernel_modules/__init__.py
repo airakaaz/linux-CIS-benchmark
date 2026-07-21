@@ -1,3 +1,5 @@
+from core.module import Module
+
 from .Rule_3_2_1 import Rule_3_2_1
 from .Rule_3_2_2 import Rule_3_2_2
 from .Rule_3_2_3 import Rule_3_2_3
@@ -13,3 +15,5 @@ rules = [
     Rule_3_2_5,
     Rule_3_2_6,
 ]
+
+kernel_modules = Module(name="kernel_modules", rules=rules)

@@ -1,6 +1,11 @@
-from . import filesystem
-from . import accounts
+from core.module import Module
 
-rules = []
-rules.extend(filesystem.rules)
-rules.extend(accounts.rules)
+from .filesystem import filesystem
+from .accounts import accounts
+
+subMods = [
+    filesystem,
+    accounts,
+]
+
+maintenance = Module(name="maintenance", subMods=subMods)

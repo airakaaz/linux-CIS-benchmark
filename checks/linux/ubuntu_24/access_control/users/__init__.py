@@ -1,3 +1,5 @@
+from core.module import Module
+
 from .Rule_5_4_1_1 import Rule_5_4_1_1
 from .Rule_5_4_1_3 import Rule_5_4_1_3
 from .Rule_5_4_1_4 import Rule_5_4_1_4
@@ -33,3 +35,5 @@ rules = [
     Rule_5_4_3_2,
     Rule_5_4_3_3,
 ]
+
+users = Module(name="users", rules=rules)

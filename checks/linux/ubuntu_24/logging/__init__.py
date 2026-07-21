@@ -1,12 +1,17 @@
-from . import journald
-from . import rsyslog
-from . import logfiles
-from . import auditd
-from . import integrity
+from core.module import Module
 
-rules = []
-rules.extend(journald.rules)
-rules.extend(rsyslog.rules)
-rules.extend(logfiles.rules)
-rules.extend(auditd.rules)
-rules.extend(integrity.rules)
+from .journald import journald
+from .rsyslog import rsyslog
+from .logfiles import logfiles
+from .auditd import auditd
+from .integrity import integrity
+
+subMods = [
+    journald,
+    rsyslog,
+    logfiles,
+    auditd,
+    integrity,
+]
+
+logging = Module(name="logging", subMods=subMods)

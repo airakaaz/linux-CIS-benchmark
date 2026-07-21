@@ -1,3 +1,5 @@
+from core.module import Module
+
 from .Rule_5_1_1 import Rule_5_1_1
 from .Rule_5_1_2 import Rule_5_1_2
 from .Rule_5_1_3 import Rule_5_1_3
@@ -49,3 +51,5 @@ rules = [
     Rule_5_1_23,
     Rule_5_1_24,
 ]
+
+ssh = Module(name="ssh", rules=rules)

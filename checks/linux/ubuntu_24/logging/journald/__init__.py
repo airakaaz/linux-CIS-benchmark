@@ -1,3 +1,5 @@
+from core.module import Module
+
 from .Rule_6_1_1_1_1 import Rule_6_1_1_1_1
 from .Rule_6_1_1_1_2 import Rule_6_1_1_1_2
 from .Rule_6_1_1_1_3 import Rule_6_1_1_1_3
@@ -11,3 +13,5 @@ rules = [
     Rule_6_1_1_1_6,
     Rule_6_1_1_1_7,
 ]
+
+journald = Module(name="journald", rules=rules)

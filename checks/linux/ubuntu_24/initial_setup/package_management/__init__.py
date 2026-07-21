@@ -1,3 +1,5 @@
+from core.module import Module
+
 from .Rule_1_2_1_2 import Rule_1_2_1_2
 from .Rule_1_2_1_3 import Rule_1_2_1_3
 from .Rule_1_2_1_4 import Rule_1_2_1_4
@@ -17,3 +19,5 @@ rules = [
     Rule_1_2_1_8,
     Rule_1_2_1_9,
 ]
+
+package_management = Module(name="package_management", rules=rules)

@@ -1,10 +1,15 @@
-from . import server
-from . import client
-from . import time_sync
-from . import job_scheduler
+from core.module import Module
 
-rules = []
-rules.extend(server.rules)
-rules.extend(client.rules)
-rules.extend(time_sync.rules)
-rules.extend(job_scheduler.rules)
+from .server import server
+from .client import client
+from .time_sync import time_sync
+from .job_scheduler import job_scheduler
+
+subMods = [
+    server,
+    client,
+    time_sync,
+    job_scheduler,
+]
+
+services = Module(name="services", subMods=subMods)

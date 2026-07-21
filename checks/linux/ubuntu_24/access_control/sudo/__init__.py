@@ -1,3 +1,5 @@
+from core.module import Module
+
 from .Rule_5_2_1 import Rule_5_2_1
 from .Rule_5_2_2 import Rule_5_2_2
 from .Rule_5_2_3 import Rule_5_2_3
@@ -15,3 +17,5 @@ rules = [
     Rule_5_2_6,
     Rule_5_2_7,
 ]
+
+sudo = Module(name="sudo", rules=rules)

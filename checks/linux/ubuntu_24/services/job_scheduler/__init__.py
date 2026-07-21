@@ -1,3 +1,5 @@
+from core.module import Module
+
 from .Rule_2_4_1_1 import Rule_2_4_1_1
 from .Rule_2_4_1_2 import Rule_2_4_1_2
 from .Rule_2_4_1_3 import Rule_2_4_1_3
@@ -21,3 +23,5 @@ rules = [
     Rule_2_4_1_9,
     Rule_2_4_2_1,
 ]
+
+job_scheduler = Module(name="job_scheduler", rules=rules)

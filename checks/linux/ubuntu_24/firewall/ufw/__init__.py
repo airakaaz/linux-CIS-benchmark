@@ -1,3 +1,5 @@
+from core.module import Module
+
 from .Rule_4_1_1 import Rule_4_1_1
 from .Rule_4_1_2 import Rule_4_1_2
 from .Rule_4_1_3 import Rule_4_1_3
@@ -11,3 +13,5 @@ rules = [
     Rule_4_1_4,
     Rule_4_1_5,
 ]
+
+ufw = Module(name="ufw", rules=rules)

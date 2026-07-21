@@ -1,4 +1,4 @@
-import checks.linux.ubuntu_24 as ubuntu_24
+from checks.linux.ubuntu_24 import ubuntu_24
 from core import ScanEngine, RuleRegistry
 
 

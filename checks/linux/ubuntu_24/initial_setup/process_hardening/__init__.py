@@ -1,3 +1,5 @@
+from core.module import Module
+
 from .Rule_1_5_1 import Rule_1_5_1
 from .Rule_1_5_2 import Rule_1_5_2
 from .Rule_1_5_3 import Rule_1_5_3
@@ -23,3 +25,5 @@ rules = [
     Rule_1_5_11,
     Rule_1_5_12,
 ]
+
+process_hardening = Module(name="process_hardening", rules=rules)

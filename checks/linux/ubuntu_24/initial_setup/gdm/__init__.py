@@ -1,3 +1,5 @@
+from core.module import Module
+
 from .Rule_1_7_1 import Rule_1_7_1
 from .Rule_1_7_2 import Rule_1_7_2
 from .Rule_1_7_3 import Rule_1_7_3
@@ -15,3 +17,5 @@ rules = [
     Rule_1_7_6,
     Rule_1_7_7,
 ]
+
+gdm = Module(name="gdm", rules=rules)

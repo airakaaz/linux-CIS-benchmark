@@ -1,3 +1,5 @@
+from core.module import Module
+
 from .Rule_7_1_1 import Rule_7_1_1
 from .Rule_7_1_2 import Rule_7_1_2
 from .Rule_7_1_3 import Rule_7_1_3
@@ -25,3 +27,5 @@ rules = [
     Rule_7_1_11,
     Rule_7_1_12,
 ]
+
+filesystem = Module(name="filesystem", rules=rules)

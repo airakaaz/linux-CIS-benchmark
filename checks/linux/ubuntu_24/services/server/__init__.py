@@ -1,3 +1,5 @@
+from core.module import Module
+
 from .Rule_2_1_1 import Rule_2_1_1
 from .Rule_2_1_2 import Rule_2_1_2
 from .Rule_2_1_3 import Rule_2_1_3
@@ -45,3 +47,5 @@ rules = [
     Rule_2_1_22,
     Rule_2_1_23,
 ]
+
+server = Module(name="server", rules=rules)

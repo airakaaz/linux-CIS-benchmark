@@ -1,10 +1,15 @@
-from . import ssh
-from . import sudo
-from . import pam
-from . import users
+from core.module import Module
 
-rules = []
-rules.extend(ssh.rules)
-rules.extend(sudo.rules)
-rules.extend(pam.rules)
-rules.extend(users.rules)
+from .ssh import ssh
+from .sudo import sudo
+from .pam import pam
+from .users import users
+
+subMods = [
+    ssh,
+    sudo,
+    pam,
+    users,
+]
+
+access_control = Module(name="access_control", subMods=subMods)
