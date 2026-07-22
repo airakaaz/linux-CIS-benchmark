@@ -1,4 +1,3 @@
-from __future__ import annotations
 import curses
 from dataclasses import dataclass
 from core.module import Module
