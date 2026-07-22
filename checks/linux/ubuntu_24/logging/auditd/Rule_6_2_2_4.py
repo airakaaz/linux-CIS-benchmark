@@ -6,6 +6,8 @@ from utils import audit
 class Rule_6_2_2_4(AuditdOptionRule):
     rule_id = "6.2.2.4"
     title = "Ensure system warns when audit logs are low on space"
+    workstation_lvl = 2
+    server_lvl = 2
     _OPTION = "space_left_action"
     _ALLOWED = {"email", "exec", "single", "halt"}
 

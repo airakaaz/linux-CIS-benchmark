@@ -6,3 +6,5 @@ class Rule_3_3_2_7(KernelParamRule):
     _PARAM = "net.ipv6.conf.all.accept_ra"
     _ALLOW = {"0"}
     title = f"Ensure {_PARAM} is configured"
+    workstation_lvl = 1
+    server_lvl = 1

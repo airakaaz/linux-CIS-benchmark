@@ -6,3 +6,5 @@ class Rule_3_2_5(KernelModuleRule):
     _MODULE = "sctp"
     _TYPE = "net"
     title = f"Ensure {_MODULE} kernel module is not available"
+    workstation_lvl = 1
+    server_lvl = 1

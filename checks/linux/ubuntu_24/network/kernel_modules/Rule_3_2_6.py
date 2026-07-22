@@ -6,3 +6,5 @@ class Rule_3_2_6(KernelModuleRule):
     _MODULE = "tipc"
     _TYPE = "net"
     title = f"Ensure {_MODULE} kernel module is not available"
+    workstation_lvl = 1
+    server_lvl = 1

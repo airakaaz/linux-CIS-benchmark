@@ -5,6 +5,8 @@ from utils import grub
 class Rule_1_3_1_2(CISRule):
     rule_id = "1.3.1.2"
     title = "Ensure AppArmor is enabled"
+    server_lvl = 1
+    workstation_lvl = 1
     mode = Mode.AUTOMATIC
 
     def check(self) -> ScanResult:

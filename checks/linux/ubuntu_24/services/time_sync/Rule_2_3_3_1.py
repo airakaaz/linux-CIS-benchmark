@@ -6,6 +6,8 @@ from ._Base_2_3 import chrony_is_active, chrony_servers
 class Rule_2_3_3_1(CISRule):
     rule_id = "2.3.3.1"
     title = "Ensure chrony is configured"
+    workstation_lvl = 1
+    server_lvl = 1
     mode = Mode.AUTOMATIC
 
     def check(self) -> ScanResult:

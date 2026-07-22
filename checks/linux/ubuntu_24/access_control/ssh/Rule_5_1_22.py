@@ -4,6 +4,8 @@ from ._Base_5_1 import SshdOptionRule
 class Rule_5_1_22(SshdOptionRule):
     rule_id = "5.1.22"
     title = "Ensure sshd UsePAM is enabled"
+    workstation_lvl = 1
+    server_lvl = 1
     _OPTION = "usepam"
 
     def is_compliant(self, value):

@@ -6,3 +6,5 @@ class Rule_1_5_2(KernelParamRule):
     _PARAM = "fs.protected_symlinks"
     _ALLOW = {"1"}
     title = f"Ensure {_PARAM} is configured"
+    server_lvl = 2
+    workstation_lvl = 2

@@ -6,3 +6,5 @@ class Rule_3_3_1_12(KernelParamRule):
     _PARAM = "net.ipv4.conf.all.rp_filter"
     _ALLOW = {"1"}
     title = f"Ensure {_PARAM} is configured"
+    workstation_lvl = 1
+    server_lvl = 1

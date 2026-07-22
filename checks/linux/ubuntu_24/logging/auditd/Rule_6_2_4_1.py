@@ -4,6 +4,8 @@ from ._Base_6_2_4 import AuditdAccessRule, audit_log_directory
 class Rule_6_2_4_1(AuditdAccessRule):
     rule_id = "6.2.4.1"
     title = "Ensure the audit log file directory mode is configured"
+    workstation_lvl = 2
+    server_lvl = 2
 
     def check(self):
         directory = audit_log_directory()

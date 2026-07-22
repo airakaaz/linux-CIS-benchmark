@@ -4,6 +4,8 @@ from ._Base_5_1 import SshdOptionRule
 class Rule_5_1_17(SshdOptionRule):
     rule_id = "5.1.17"
     title = "Ensure sshd MaxStartups is configured"
+    workstation_lvl = 1
+    server_lvl = 1
     _OPTION = "maxstartups"
 
     def is_compliant(self, value):

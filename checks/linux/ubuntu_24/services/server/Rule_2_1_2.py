@@ -8,6 +8,8 @@ from utils.command import run
 class Rule_2_1_2(CISRule):
     rule_id = "2.1.2"
     title = "Ensure mail transfer agents are configured for local-only mode"
+    server_lvl = 1
+    workstation_lvl = 1
     mode = Mode.AUTOMATIC
 
     _PORTS = ("25", "465", "587")

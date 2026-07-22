@@ -7,3 +7,5 @@ class Rule_1_3_1_4(KernelParamRule):
     _ALLOW = {"1"}
     _UFW_OVERRIDE_NOTE = True
     title = f"Ensure {_PARAM} is enabled"
+    server_lvl = 1
+    workstation_lvl = 1

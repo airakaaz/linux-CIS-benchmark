@@ -6,3 +6,5 @@ class Rule_1_1_1_9(KernelModuleRule):
     _MODULE = "firewire"
     _TYPE = "drivers"
     title = "Ensure firewire-core kernel module is not available"
+    server_lvl = 1
+    workstation_lvl = 2

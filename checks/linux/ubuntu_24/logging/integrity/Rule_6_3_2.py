@@ -5,6 +5,8 @@ from utils import systemctl
 class Rule_6_3_2(CISRule):
     rule_id = "6.3.2"
     title = "Ensure filesystem integrity is regularly checked"
+    workstation_lvl = 1
+    server_lvl = 1
     mode = Mode.AUTOMATIC
 
     def check(self) -> ScanResult:

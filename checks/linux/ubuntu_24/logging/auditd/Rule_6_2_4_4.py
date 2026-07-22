@@ -12,6 +12,8 @@ from ._Base_6_2_4 import (
 class Rule_6_2_4_4(AuditdAccessRule):
     rule_id = "6.2.4.4"
     title = "Ensure audit log files group owner is configured"
+    workstation_lvl = 2
+    server_lvl = 2
 
     def check(self) -> ScanResult:
         configured_group = audit_log_group()

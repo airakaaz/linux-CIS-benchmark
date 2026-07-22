@@ -6,6 +6,8 @@ from utils import ssh
 class Rule_5_1_12(SshdOptionRule):
     rule_id = "5.1.12"
     title = "Ensure sshd KexAlgorithms are configured"
+    workstation_lvl = 1
+    server_lvl = 1
     _OPTION = "kexalgorithms"
 
     def check(self):

@@ -5,6 +5,8 @@ from utils import kernel_utils
 class Rule_3_1_2(CISRule):
     rule_id = "3.1.2"
     title = "Ensure wireless interfaces are not available"
+    workstation_lvl = 0
+    server_lvl = 1
     mode = Mode.AUTOMATIC
 
     def check(self) -> ScanResult:

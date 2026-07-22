@@ -6,3 +6,5 @@ class Rule_3_3_1_16(KernelParamRule):
     _PARAM = "net.ipv4.conf.all.log_martians"
     _ALLOW = {"1"}
     title = f"Ensure {_PARAM} is configured"
+    workstation_lvl = 1
+    server_lvl = 1

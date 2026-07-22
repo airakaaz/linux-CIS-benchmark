@@ -8,3 +8,5 @@ class Rule_7_1_3(PathAccessRule):
     _MAX_ACCESS = 0o644
 
     title = f"Ensure access to {_PATH} directory is configured"
+    workstation_lvl = 1
+    server_lvl = 1

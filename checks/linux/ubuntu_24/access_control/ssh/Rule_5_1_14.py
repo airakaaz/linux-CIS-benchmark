@@ -4,6 +4,8 @@ from ._Base_5_1 import SshdOptionRule
 class Rule_5_1_14(SshdOptionRule):
     rule_id = "5.1.14"
     title = "Ensure sshd LogLevel is configured"
+    workstation_lvl = 1
+    server_lvl = 1
     _OPTION = "loglevel"
 
     def is_compliant(self, value):

@@ -5,5 +5,7 @@ from utils import pam
 class Rule_5_3_3_2_1(PamPolicyRule):
     rule_id = "5.3.3.2.1"
     title = "Ensure password number of changed characters is configured"
+    workstation_lvl = 1
+    server_lvl = 1
     _CHECK = staticmethod(lambda: pam.pwquality_numeric("difok", 2))
     _EXPECTED = "difok is 2 or greater"

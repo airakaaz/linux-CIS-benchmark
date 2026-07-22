@@ -6,3 +6,5 @@ class Rule_1_1_2_6_3(MountOptionRule):
     _MOUNT_POINT = "/var/log"
     _OPTION = "nosuid"
     title = f"Ensure {_OPTION} option set on {_MOUNT_POINT} partition"
+    server_lvl = 1
+    workstation_lvl = 1

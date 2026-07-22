@@ -6,6 +6,8 @@ from ._Base_2_3 import timesyncd_options
 class Rule_2_3_2_1(CISRule):
     rule_id = "2.3.2.1"
     title = "Ensure systemd-timesyncd configured with authorized timeserver"
+    workstation_lvl = 1
+    server_lvl = 1
     mode = Mode.AUTOMATIC
 
     def check(self) -> ScanResult:

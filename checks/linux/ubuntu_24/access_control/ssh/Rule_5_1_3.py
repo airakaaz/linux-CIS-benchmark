@@ -5,6 +5,8 @@ from utils import ssh
 class Rule_5_1_3(SshAccessRule):
     rule_id = "5.1.3"
     title = "Ensure access to SSH public host key files is configured"
+    workstation_lvl = 1
+    server_lvl = 1
 
     def check(self):
         return self.access_result(

@@ -4,6 +4,8 @@ from ._Base_2_4_1 import AllowDenyFileRule
 class Rule_2_4_2_1(AllowDenyFileRule):
     rule_id = "2.4.2.1"
     title = "Ensure at is restricted to authorized users"
+    workstation_lvl = 1
+    server_lvl = 1
     _PACKAGE = "at"
     _ALLOW_FILE = "/etc/at.allow"
     _DENY_FILE = "/etc/at.deny"

@@ -6,6 +6,8 @@ from utils import kernel_utils
 class Rule_6_2_3_28(AuditRuleSetRule):
     rule_id = "6.2.3.28"
     title = "Ensure kernel module loading unloading and modification is collected"
+    workstation_lvl = 2
+    server_lvl = 2
     _PATTERNS = tuple(
         f"(?=.*arch={arch})(?=.*(?:init_module|finit_module|delete_module|create_module|query_module))(?=.*auid!=(?:unset|-1|4294967295))(?=.*(?:key=kernel_modules|-k\\s+kernel_modules))"
         for arch in ("b64", "b32")

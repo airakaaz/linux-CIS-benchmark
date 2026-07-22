@@ -4,6 +4,8 @@ from ._Base_5_3_2 import RequireFileContentRule
 class Rule_5_3_2_4(RequireFileContentRule):
     rule_id = "5.3.2.4"
     title = "Ensure pam_pwhistory module is enabled"
+    workstation_lvl = 1
+    server_lvl = 1
 
     _PATHS = [
         "/etc/pam.d/common-password",

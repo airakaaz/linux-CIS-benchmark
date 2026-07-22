@@ -5,6 +5,8 @@ from utils import sudo
 class Rule_5_2_4(CISRule):
     rule_id = "5.2.4"
     title = "Ensure users must provide password for escalation"
+    workstation_lvl = 2
+    server_lvl = 2
     mode = Mode.AUTOMATIC
 
     def check(self) -> ScanResult:

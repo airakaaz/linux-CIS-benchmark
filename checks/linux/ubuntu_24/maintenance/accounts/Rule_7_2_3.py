@@ -5,5 +5,7 @@ from utils import accounts
 class Rule_7_2_3(AccountDatabaseRule):
     rule_id = "7.2.3"
     title = "Ensure all groups in /etc/passwd exist in /etc/group"
+    workstation_lvl = 1
+    server_lvl = 1
     _CHECK = staticmethod(accounts.missing_primary_groups)
     _EXPECTED = "every primary GID in /etc/passwd exists in /etc/group"

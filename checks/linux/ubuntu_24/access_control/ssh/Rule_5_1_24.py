@@ -6,6 +6,8 @@ from utils import ssh
 class Rule_5_1_24(SshdOptionRule):
     rule_id = "5.1.24"
     title = "Ensure sshd ListenAddress is configured"
+    workstation_lvl = 2
+    server_lvl = 2
     _OPTION = "listenaddress"
 
     def check(self):

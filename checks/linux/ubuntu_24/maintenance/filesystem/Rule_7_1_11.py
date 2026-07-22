@@ -5,6 +5,8 @@ from utils import filesystem
 class Rule_7_1_11(CISRule):
     rule_id = "7.1.11"
     title = "Ensure world writable files and directories are secured"
+    workstation_lvl = 1
+    server_lvl = 1
     mode = Mode.AUTOMATIC
 
     def check(self) -> ScanResult:

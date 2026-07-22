@@ -8,6 +8,8 @@ from utils import permissions
 class Rule_1_2_1_3(CISRule):
     rule_id = "1.2.1.3"
     title = "Ensure apt key files and signed-by sources are configured securely"
+    server_lvl = 1
+    workstation_lvl = 2
     mode = Mode.AUTOMATIC
 
     _KEY_DIRECTORIES = [

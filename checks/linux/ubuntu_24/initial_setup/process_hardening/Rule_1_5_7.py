@@ -8,6 +8,8 @@ from utils import systemctl, package
 class Rule_1_5_7(CISRule):
     rule_id = "1.5.7"
     title = "Ensure Automatic Error Reporting is configured"
+    server_lvl = 1
+    workstation_lvl = 1
     mode = Mode.AUTOMATIC
 
     _PACKAGE = "apport"

@@ -5,5 +5,7 @@ from utils import accounts
 class Rule_7_2_4(AccountDatabaseRule):
     rule_id = "7.2.4"
     title = "Ensure shadow group is empty"
+    workstation_lvl = 1
+    server_lvl = 1
     _CHECK = staticmethod(accounts.shadow_group_issues)
     _EXPECTED = "shadow group has no members and is not a primary user group"

@@ -4,6 +4,8 @@ from ._Base_1_7 import GsettingsRule, GsettingsCheck, equals
 class Rule_1_7_4(GsettingsRule):
     rule_id = "1.7.4"
     title = "Ensure GDM automount is configured"
+    server_lvl = 1
+    workstation_lvl = 2
     _CHECKS = [
         GsettingsCheck(
             schema="org.gnome.desktop.media-handling",

@@ -8,3 +8,5 @@ class Rule_6_1_1_1_7(SystemdConfOptionRule):
     _OPTION = "Compress"
     _ALLOW = {"yes"}
     title = f"Ensure journald {_OPTION} is configured"
+    workstation_lvl = 1
+    server_lvl = 1

@@ -5,3 +5,5 @@ class Rule_1_1_1_7(KernelModuleRule):
     rule_id = "1.1.1.7"
     _MODULE = "squashfs"
     title = f"Ensure {_MODULE} kernel module is not available"
+    server_lvl = 2
+    workstation_lvl = 2

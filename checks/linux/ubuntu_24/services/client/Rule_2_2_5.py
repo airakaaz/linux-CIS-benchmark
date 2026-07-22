@@ -5,3 +5,5 @@ class Rule_2_2_5(VerifyNotInstalledRule):
     rule_id = "2.2.5"
     _PACKAGES = {"ldap-utils"}
     title = "Ensure ldap client is not installed"
+    workstation_lvl = 1
+    server_lvl = 1

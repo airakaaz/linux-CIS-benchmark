@@ -7,6 +7,8 @@ from utils import aide
 class Rule_6_3_3(CISRule):
     rule_id = "6.3.3"
     title = "Ensure cryptographic mechanisms are used to protect the integrity of audit tools"
+    workstation_lvl = 2
+    server_lvl = 2
     mode = Mode.AUTOMATIC
 
     def check(self) -> ScanResult:

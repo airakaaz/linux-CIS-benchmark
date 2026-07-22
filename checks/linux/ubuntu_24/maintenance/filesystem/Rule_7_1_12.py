@@ -5,6 +5,8 @@ from utils import filesystem
 class Rule_7_1_12(CISRule):
     rule_id = "7.1.12"
     title = "Ensure no files or directories without an owner and a group exist"
+    workstation_lvl = 1
+    server_lvl = 1
     mode = Mode.AUTOMATIC
 
     def check(self) -> ScanResult:

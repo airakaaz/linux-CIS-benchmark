@@ -6,3 +6,5 @@ class Rule_1_1_2_2_2(MountOptionRule):
     _MOUNT_POINT = "/dev/shm"
     _OPTION = "nodev"
     title = f"Ensure {_OPTION} option set on {_MOUNT_POINT} partition"
+    server_lvl = 1
+    workstation_lvl = 1

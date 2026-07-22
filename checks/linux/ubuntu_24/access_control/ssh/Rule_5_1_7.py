@@ -6,6 +6,8 @@ from utils import ssh
 class Rule_5_1_7(SshAccessRule):
     rule_id = "5.1.7"
     title = "Ensure sshd ClientAliveInterval and ClientAliveCountMax are configured"
+    workstation_lvl = 1
+    server_lvl = 1
 
     def check(self):
         options = ssh.effective_options()

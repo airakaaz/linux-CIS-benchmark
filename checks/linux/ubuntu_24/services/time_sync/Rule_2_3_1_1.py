@@ -5,6 +5,8 @@ from utils.command import run
 class Rule_2_3_1_1(CISRule):
     rule_id = "2.3.1.1"
     title = "Ensure a single time synchronization daemon is in use"
+    workstation_lvl = 1
+    server_lvl = 1
     mode = Mode.AUTOMATIC
 
     _SERVICES = ("systemd-timesyncd.service", "chrony.service")

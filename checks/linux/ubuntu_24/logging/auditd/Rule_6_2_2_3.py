@@ -6,6 +6,8 @@ from utils import audit
 class Rule_6_2_2_3(AuditdOptionRule):
     rule_id = "6.2.2.3"
     title = "Ensure system is disabled when audit logs are full"
+    workstation_lvl = 2
+    server_lvl = 2
     _OPTION = "disk_full_action"
     _ALLOWED = {"halt", "single"}
 

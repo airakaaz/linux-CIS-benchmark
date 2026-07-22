@@ -4,6 +4,8 @@ from ._Base_1_7 import GsettingsRule, GsettingsCheck, equals
 class Rule_1_7_5(GsettingsRule):
     rule_id = "1.7.5"
     title = "Ensure GDM autorun-never is configured"
+    server_lvl = 1
+    workstation_lvl = 1
     _CHECKS = [
         GsettingsCheck(
             schema="org.gnome.desktop.media-handling",

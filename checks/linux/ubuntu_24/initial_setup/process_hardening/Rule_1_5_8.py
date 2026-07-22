@@ -6,3 +6,5 @@ class Rule_1_5_8(KernelParamRule):
     _PARAM = "kernel.kptr_restrict"
     _ALLOW = {"1", "2"}
     title = f"Ensure {_PARAM} is configured"
+    server_lvl = 1
+    workstation_lvl = 1

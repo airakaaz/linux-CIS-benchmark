@@ -5,6 +5,8 @@ from ._Base_2_1 import evaluate
 class Rule_2_1_6(CISRule):
     rule_id = "2.1.6"
     title = "Ensure web server services are not in use"
+    server_lvl = 1
+    workstation_lvl = 1
     mode = Mode.AUTOMATIC
 
     _COMPONENTS = (

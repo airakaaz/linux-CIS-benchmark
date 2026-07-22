@@ -5,3 +5,5 @@ class Rule_2_2_4(VerifyNotInstalledRule):
     rule_id = "2.2.4"
     _PACKAGES = {"telnet", "inetutils-telnet"}
     title = "Ensure telnet client is not installed"
+    workstation_lvl = 1
+    server_lvl = 1

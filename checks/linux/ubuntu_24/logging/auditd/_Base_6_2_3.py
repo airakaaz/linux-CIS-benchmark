@@ -60,7 +60,9 @@ def sudo_log_file() -> str | None:
     except OSError:
         pass
 
-    pattern = re.compile(r"^\s*Defaults\s+.*?\blogfile\s*=\s*[\"']?([^\"'\s,]+)", re.IGNORECASE)
+    pattern = re.compile(
+        r"^\s*Defaults\s+.*?\blogfile\s*=\s*[\"']?([^\"'\s,]+)", re.IGNORECASE
+    )
     found: str | None = None
     for path in files:
         try:
@@ -111,15 +113,21 @@ class PrivilegedCommandRule(CISRule):
         for path in paths:
             state = audit.audit_rule_state(rf"{re.escape(str(path))}")
             if not state.valid:
-                missing.append(f"{path}: running={state.running}, persistent={state.persistent}")
+                missing.append(
+                    f"{path}: running={state.running}, persistent={state.persistent}"
+                )
         passed = not missing
         return ScanResult(
             rule_id=self.rule_id,
             title=self.title,
             passed=passed,
-            message="all privileged commands are audited" if passed else "privileged commands are missing from audit configuration",
+            message="all privileged commands are audited"
+            if passed
+            else "privileged commands are missing from audit configuration",
             expected="every setuid/setgid file is present in running and persistent audit configuration",
-            found="no privileged files found" if not paths else ("all files audited" if passed else "; ".join(missing)),
+            found="no privileged files found"
+            if not paths
+            else ("all files audited" if passed else "; ".join(missing)),
         )
 
 
@@ -131,9 +139,12 @@ class NetplanRule(AuditRuleSetRule):
     def check(self) -> ScanResult:
         if not Path("/etc/netplan").exists():
             return ScanResult(
-                rule_id=self.rule_id, title=self.title, passed=True,
+                rule_id=self.rule_id,
+                title=self.title,
+                passed=True,
                 message="/etc/netplan does not exist; not applicable.",
-                expected="/etc/netplan is watched if it exists", found="/etc/netplan not present",
+                expected="/etc/netplan is watched if it exists",
+                found="/etc/netplan not present",
             )
         return super().check()
 
@@ -160,7 +171,9 @@ class ImmutableAuditRule(CISRule):
             rule_id=self.rule_id,
             title=self.title,
             passed=passed,
-            message="audit configuration is immutable" if passed else "audit configuration is not immutable",
+            message="audit configuration is immutable"
+            if passed
+            else "audit configuration is not immutable",
             expected="the last persistent audit rule is -e 2",
             found=matches[-1] if matches else "no persistent audit rules found",
         )

@@ -12,6 +12,8 @@ class Rule_1_1_2_1_1(CISRule):
     _BAD_UNIT_STATES = {"masked", "disabled"}
 
     title = f"Ensure {_MOUNT_POINT} is tmpfs or a separate partition"
+    server_lvl = 1
+    workstation_lvl = 1
 
     def check(self) -> ScanResult:
         reasons = []

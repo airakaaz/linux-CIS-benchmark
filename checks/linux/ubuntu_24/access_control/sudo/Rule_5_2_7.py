@@ -9,6 +9,8 @@ from utils import filesystem
 class Rule_5_2_7(CISRule):
     rule_id = "5.2.7"
     title = "Ensure access to the su command is restricted"
+    workstation_lvl = 1
+    server_lvl = 1
     mode = Mode.AUTOMATIC
 
     def check(self) -> ScanResult:

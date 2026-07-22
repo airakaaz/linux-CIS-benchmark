@@ -6,3 +6,5 @@ class Rule_1_1_2_5_1(SeparatePartitionRule):
 
     rule_id = "1.1.2.5.1"
     title = f"Ensure separate partition exists for {_MOUNT_POINT}"
+    server_lvl = 2
+    workstation_lvl = 2

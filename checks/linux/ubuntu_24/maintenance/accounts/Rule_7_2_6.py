@@ -5,5 +5,7 @@ from utils import accounts
 class Rule_7_2_6(AccountDatabaseRule):
     rule_id = "7.2.6"
     title = "Ensure no duplicate GIDs exist"
+    workstation_lvl = 1
+    server_lvl = 1
     _CHECK = staticmethod(lambda: accounts.duplicate_accounts(2, "GID"))
     _EXPECTED = "all GIDs are unique"

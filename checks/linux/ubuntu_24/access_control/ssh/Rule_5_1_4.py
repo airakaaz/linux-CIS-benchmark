@@ -6,6 +6,8 @@ from utils import ssh
 class Rule_5_1_4(SshAccessRule):
     rule_id = "5.1.4"
     title = "Ensure sshd access is configured"
+    workstation_lvl = 1
+    server_lvl = 1
 
     def check(self):
         options = ssh.effective_options()

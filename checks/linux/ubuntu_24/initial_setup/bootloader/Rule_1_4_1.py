@@ -6,6 +6,8 @@ from core import CISRule, Mode, ScanResult
 class Rule_1_4_1(CISRule):
     rule_id = "1.4.1"
     title = "Ensure bootloader password is set"
+    server_lvl = 1
+    workstation_lvl = 1
     mode = Mode.AUTOMATIC
 
     _GRUB_CFG = "/boot/grub/grub.cfg"

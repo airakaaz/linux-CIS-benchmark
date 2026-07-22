@@ -10,3 +10,5 @@ class Rule_7_1_5(PathAccessRule):
     _VALID_GROUPS = shadow_group_ids()
 
     title = f"Ensure access to {_PATH} directory is configured"
+    workstation_lvl = 1
+    server_lvl = 1

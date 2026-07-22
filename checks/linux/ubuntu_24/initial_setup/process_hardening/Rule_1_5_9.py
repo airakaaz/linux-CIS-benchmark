@@ -6,3 +6,5 @@ class Rule_1_5_9(KernelParamRule):
     _PARAM = "kernel.randomize_va_space"
     _ALLOW = {"2"}
     title = f"Ensure {_PARAM} is configured"
+    server_lvl = 1
+    workstation_lvl = 1

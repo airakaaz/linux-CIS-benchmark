@@ -6,6 +6,8 @@ from utils import ssh
 class Rule_5_1_15(SshdOptionRule):
     rule_id = "5.1.15"
     title = "Ensure sshd MACs are configured"
+    workstation_lvl = 1
+    server_lvl = 1
     _OPTION = "macs"
 
     def check(self):

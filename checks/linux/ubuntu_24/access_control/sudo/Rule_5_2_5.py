@@ -5,6 +5,8 @@ from utils import sudo
 class Rule_5_2_5(CISRule):
     rule_id = "5.2.5"
     title = "Ensure re-authentication for privilege escalation is not disabled globally"
+    workstation_lvl = 1
+    server_lvl = 1
     mode = Mode.AUTOMATIC
 
     def check(self) -> ScanResult:

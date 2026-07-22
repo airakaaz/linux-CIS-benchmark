@@ -9,6 +9,8 @@ from checks.templates.service_status import EnabledServiceRule
 class Rule_4_1_2(EnabledServiceRule):
     rule_id = "4.1.2"
     title = "Ensure ufw service is enabled and active"
+    workstation_lvl = 1
+    server_lvl = 1
     _CHECK_ACTIVE = True
 
     def check(self) -> ScanResult:

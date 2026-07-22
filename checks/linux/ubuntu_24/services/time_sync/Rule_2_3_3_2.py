@@ -7,6 +7,8 @@ from utils.command import run
 class Rule_2_3_3_2(CISRule):
     rule_id = "2.3.3.2"
     title = "Ensure chrony is running as user _chrony"
+    workstation_lvl = 1
+    server_lvl = 1
     mode = Mode.AUTOMATIC
 
     def check(self) -> ScanResult:

@@ -6,6 +6,8 @@ from core import CISRule, Mode, ScanResult
 class Rule_1_7_7(CISRule):
     rule_id = "1.7.7"
     title = "Ensure Xwayland is configured"
+    server_lvl = 2
+    workstation_lvl = 2
     mode = Mode.AUTOMATIC
 
     _CONFIG = "/etc/gdm/custom.conf"

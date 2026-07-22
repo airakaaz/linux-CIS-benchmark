@@ -7,6 +7,8 @@ from utils.command import run
 class Rule_1_2_1_2(CISRule):
     rule_id = "1.2.1.2"
     title = "Ensure weak dependencies are configured"
+    server_lvl = 2
+    workstation_lvl = 2
     mode = Mode.AUTOMATIC
 
     _RECOMMENDS = 'APT::Install-Recommends "0";'

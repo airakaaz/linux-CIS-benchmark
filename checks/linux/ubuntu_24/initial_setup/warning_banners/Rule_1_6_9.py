@@ -26,6 +26,8 @@ def get_motd_paths() -> list[str]:
 class Rule_1_6_9(MultiPathsAccessRule):
     rule_id = "1.6.9"
     title = "Ensure access to pam_motd file is configured"
+    server_lvl = 1
+    workstation_lvl = 1
 
     _MAX_ACCESS = 0o644
     _PATHS = get_motd_paths()

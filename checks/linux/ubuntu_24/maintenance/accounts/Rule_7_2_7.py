@@ -5,5 +5,7 @@ from utils import accounts
 class Rule_7_2_7(AccountDatabaseRule):
     rule_id = "7.2.7"
     title = "Ensure no duplicate user names exist"
+    workstation_lvl = 1
+    server_lvl = 1
     _CHECK = staticmethod(lambda: accounts.duplicate_accounts(0, "user name"))
     _EXPECTED = "all user names are unique"

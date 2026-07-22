@@ -5,6 +5,8 @@ from utils import sudo
 class Rule_5_2_3(CISRule):
     rule_id = "5.2.3"
     title = "Ensure sudo log file exists"
+    workstation_lvl = 1
+    server_lvl = 1
     mode = Mode.AUTOMATIC
 
     def check(self) -> ScanResult:

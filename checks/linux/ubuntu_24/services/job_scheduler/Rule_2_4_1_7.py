@@ -10,6 +10,8 @@ class Rule_2_4_1_7(PathAccessRule):
     _MAX_ACCESS = 0o700
 
     title = f"Ensure access to {_PATH} is configured"
+    workstation_lvl = 1
+    server_lvl = 1
 
     def check(self) -> ScanResult:
         if package.installed("cron").valid:

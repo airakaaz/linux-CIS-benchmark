@@ -5,6 +5,8 @@ from utils import package, systemctl
 class Rule_2_4_1_1(CISRule):
     rule_id = "2.4.1.1"
     title = "Ensure cron daemon is enabled and active"
+    workstation_lvl = 1
+    server_lvl = 1
     mode = Mode.AUTOMATIC
 
     _PACKAGE = "cron"

@@ -6,6 +6,8 @@ from utils.command import run
 class Rule_1_3_1_3(CISRule):
     rule_id = "1.3.1.3"
     title = "Ensure all AppArmor Profiles are enforcing"
+    server_lvl = 2
+    workstation_lvl = 2
     mode = Mode.AUTOMATIC
 
     def check(self) -> ScanResult:

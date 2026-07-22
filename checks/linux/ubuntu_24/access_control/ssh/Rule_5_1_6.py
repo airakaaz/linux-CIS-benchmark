@@ -6,6 +6,8 @@ from utils import ssh
 class Rule_5_1_6(SshAccessRule):
     rule_id = "5.1.6"
     title = "Ensure sshd Ciphers are configured"
+    workstation_lvl = 1
+    server_lvl = 1
 
     def check(self):
         options = ssh.effective_options()

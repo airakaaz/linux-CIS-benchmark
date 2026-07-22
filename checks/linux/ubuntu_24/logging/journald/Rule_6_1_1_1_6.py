@@ -8,3 +8,5 @@ class Rule_6_1_1_1_6(SystemdConfOptionRule):
     _OPTION = "Storage"
     _ALLOW = {"persistent"}
     title = f"Ensure journald {_OPTION} is configured"
+    workstation_lvl = 1
+    server_lvl = 1

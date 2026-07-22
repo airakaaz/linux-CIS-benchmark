@@ -6,6 +6,8 @@ from core import CISRule, Mode, ScanResult
 class Rule_1_7_6(CISRule):
     rule_id = "1.7.6"
     title = "Ensure XDMCP is not enabled"
+    server_lvl = 1
+    workstation_lvl = 1
     mode = Mode.AUTOMATIC
 
     _CANDIDATE_FILES = [
