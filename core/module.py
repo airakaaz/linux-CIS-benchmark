@@ -2,6 +2,7 @@ import curses
 from typing import Type
 
 from core.rule import CISRule
+from utils import tui
 
 
 class Module:
@@ -80,19 +81,20 @@ class ModuleNavigator:
             walk(m)
         return out
 
-    def _draw(self, stdscr: curses.window, vis):
-        h, w = stdscr.getmaxyx()
-        stdscr.erase()
-        body = h - 4
-        footer = body + 1
+    def _draw(self, vis):
+        h, w = self.stdscr.getmaxyx()
+        self.stdscr.erase()
+        body_h = h - 4
 
         if self.cursor < self.scroll:
             self.scroll = self.cursor
-        elif self.cursor >= self.scroll + body:
-            self.scroll = self.cursor - body + 1
+        elif self.cursor >= self.scroll + body_h:
+            self.scroll = self.cursor - body_h + 1
 
-        self.hoffset = min(5, max(1, body - len(vis)))
-        for row, i in enumerate(range(self.scroll, min(len(vis), self.scroll + body))):
+        self.hoffset = min(5, max(1, body_h - len(vis)))
+        for row, i in enumerate(
+            range(self.scroll, min(len(vis), self.scroll + body_h))
+        ):
             mod, depth = vis[i]
             # 󰛀 󰛂 󰝤 󰁅 󰁔
             if mod in self.selected:
@@ -109,29 +111,18 @@ class ModuleNavigator:
             line = f" {'  ' * depth} {mark} {mod.name}"
             menu_offset = (w - self.maxwidth) // 2
 
-            if i == self.cursor:
-                stdscr.attron(curses.A_REVERSE)
-            if mod in self.selected:
-                stdscr.attron(curses.A_BOLD)
-
-            stdscr.addnstr(
+            self.scrmgr.write(
                 row + self.hoffset,
                 menu_offset,
                 line.ljust(self.maxwidth),
-                w - menu_offset - 1,
+                (curses.A_REVERSE if i == self.cursor else 0)
+                | (curses.A_BOLD if mod in self.selected else 0),
             )
 
-            if i == self.cursor:
-                stdscr.attroff(curses.A_REVERSE)
-            if mod in self.selected:
-                stdscr.attroff(curses.A_BOLD)
+        footer = "j/k ↑↓ move  |  h/l ←→ collapse/expand  |  Space: select  |  Enter: confirm  |  q: exit"
+        self.scrmgr.footer(footer)
 
-        stdscr.addnstr(footer + 1, 0, "-" * w, w)
-        help = "j/k ↑↓ move  |  h/l ←→ collapse/expand  |  Space: select  |  Enter: confirm  |  q: exit"
-        help_offset = max(0, w // 2 - len(help) // 2)
-        stdscr.addnstr(footer + 2, help_offset, help, w - help_offset - 1)
-
-        stdscr.refresh()
+        self.stdscr.refresh()
 
     def _select(self, module: Module):
         self.selected.add(module)
@@ -176,12 +167,14 @@ class ModuleNavigator:
         return False
 
     def run(self, stdscr: curses.window) -> list[Module]:
-        curses.curs_set(0)
-        stdscr.keypad(True)
+        self.stdscr = stdscr
+        self.scrmgr = tui.ScreenManager(stdscr)
+        self.scrmgr.init_curses()
+
         while True:
             vis = self._visible()
             self.cursor = max(0, min(self.cursor, len(vis) - 1))
-            self._draw(stdscr, vis)
+            self._draw(vis)
             k = stdscr.getch()
             if k in (curses.KEY_UP, ord("k")):
                 self.cursor = max(0, self.cursor - 1)

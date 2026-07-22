@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from core.module import Module
 from core.result import ScanResult
 from core.rule import CISRule, Mode
+from utils import tui
 
 
 @dataclass
@@ -18,7 +19,10 @@ class ScanScreen:
     BAR_WIDTH = 40
 
     def __init__(self, stdscr: curses.window):
-        self.stdscr: curses.window = stdscr
+        self.stdscr = stdscr
+        self.scr_mgr = tui.ScreenManager(stdscr)
+        self.scr_mgr.init_curses()
+
         self.rows: list[_Progress] = []
         self.total_rules = 0
         self.done_rules = 0
@@ -38,13 +42,12 @@ class ScanScreen:
         self.redraw()
 
     def redraw(self):
-        s = self.stdscr
-        h, w = s.getmaxyx()
-        s.erase()
+        h, w = self.stdscr.getmaxyx()
+        self.stdscr.erase()
 
         # Top-right overall progress
         overall = f"{self.done_rules}/{self.total_rules}"
-        s.addnstr(0, max(0, w - len(overall) - 2), overall, len(overall), curses.A_BOLD)
+        self.scr_mgr.write(0, max(0, w - len(overall) - 2), overall, curses.A_BOLD)
 
         row_height = 3
 
@@ -68,11 +71,10 @@ class ScanScreen:
 
             # ----- Module Name -----
             name_x = max(0, bar_x - len(p.module.name) - 3)
-            s.addnstr(
+            self.scr_mgr.write(
                 y,
                 name_x,
                 p.module.name,
-                max(0, w - name_x - 1),
                 curses.A_BOLD,
             )
 
@@ -87,7 +89,7 @@ class ScanScreen:
                 if bar_x + i >= w:
                     break
 
-                s.addch(
+                self.scr_mgr.write(
                     y,
                     bar_x + i,
                     " ",
@@ -101,11 +103,10 @@ class ScanScreen:
             counter_x = bar_x + bar_width + 2
 
             if counter_x < w:
-                s.addnstr(
+                self.scr_mgr.write(
                     y,
                     counter_x,
                     counter,
-                    w - counter_x - 1,
                 )
 
             # ----- Rule -----
@@ -115,14 +116,13 @@ class ScanScreen:
             rule_x = max(0, (w - len(rule)) // 2)
 
             if y + 1 < h:
-                s.addnstr(
+                self.scr_mgr.write(
                     y + 1,
                     rule_x,
                     rule,
-                    max(0, w - rule_x - 1),
                 )
 
-        s.refresh()
+        self.stdscr.refresh()
 
 
 class ScanEngine:

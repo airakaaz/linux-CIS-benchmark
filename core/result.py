@@ -1,6 +1,8 @@
 import curses
 from dataclasses import dataclass
 
+from utils import tui
+
 
 @dataclass(slots=True)
 class ScanResult:
@@ -29,17 +31,24 @@ class ResultViewer:
         self.failed_indices = [i for i, r in enumerate(self.results) if not r.passed]
         self.all_indices = list(range(len(self.results)))
 
-        self.ID_W = max(len(r.rule_id) for r in results) + 2
+        self._HEADER_H = 4
+        self._ID_W = max(len(r.rule_id) for r in results) + 2
+        self._STATUS_W = 6
+
+    @property
+    def _TITLE_W(self) -> int:
+        _, w = self.stdscr.getmaxyx()
+        return w - self._ID_W - self._STATUS_W
+
+    @property
+    def _BODY_H(self) -> int:
+        height, _ = self.stdscr.getmaxyx()
+        return max(1, height - 6)
 
     # Initialization
 
-    def _init_curses(self) -> None:
-        curses.curs_set(0)
-        self.stdscr.keypad(True)
-
+    def _init_colors(self) -> None:
         if curses.has_colors():
-            curses.start_color()
-            curses.use_default_colors()
             curses.init_pair(self.COLOR_PASS, curses.COLOR_GREEN, -1)
             curses.init_pair(self.COLOR_FAIL, curses.COLOR_RED, -1)
 
@@ -47,9 +56,9 @@ class ResultViewer:
 
     def _update_filter(self) -> None:
         if self.failed_only:
-            self.active_indices = self.failed_indices
+            self.active_indices = self.failed_indices.copy()
         else:
-            self.active_indices = self.all_indices
+            self.active_indices = self.all_indices.copy()
 
         if not self.active_indices:
             self.selected = 0
@@ -77,29 +86,26 @@ class ResultViewer:
 
         return height
 
-    def _cursor_row(self) -> int:
+    def _cursor_row(self, bottom=False) -> int:
         row = 0
 
         for i in range(self.selected):
             row += self._item_height(self.active_indices[i])
 
-        return row
+        if bottom:
+            row += self._item_height(self.active_indices[self.selected]) - 1
 
-    def _body_height(self) -> int:
-        height, _ = self.stdscr.getmaxyx()
-        return max(1, height - 6)
+        return row
 
     def _ensure_cursor_visible(self) -> None:
         if not self.active_indices:
             self.scroll = 0
             return
 
-        body_height = self._body_height()
+        body_height = self._BODY_H
 
         cursor_top = self._cursor_row()
-        cursor_bottom = (
-            cursor_top + self._item_height(self.active_indices[self.selected]) - 1
-        )
+        cursor_bottom = self._cursor_row(bottom=True)
 
         if cursor_top < self.scroll:
             self.scroll = cursor_top
@@ -111,24 +117,6 @@ class ResultViewer:
 
     # Drawing
 
-    def _safe_add(self, y: int, x: int, text: str, attr: int = 0) -> None:
-        height, width = self.stdscr.getmaxyx()
-
-        if y < 0 or y >= height:
-            return
-
-        if x >= width:
-            return
-
-        available = width - x
-        if available <= 0:
-            return
-
-        try:
-            self.stdscr.addnstr(y, x, text, available, attr)
-        except curses.error:
-            pass
-
     def _status_attr(self, passed: bool) -> int:
         if not curses.has_colors():
             return curses.A_BOLD
@@ -138,48 +126,55 @@ class ResultViewer:
             | curses.A_BOLD
         )
 
-    def _draw_body(self) -> None:
-        body_top = 4
-        body_height = self._body_height()
+    def _update_body(self) -> None:
+        body_height = self._BODY_H
+        _, w = self.stdscr.getmaxyx()
 
         virtual_row = 0
-        screen_row = body_top
+        screen_row = self._HEADER_H
 
         if not self.active_indices:
-            self._safe_add(body_top, 0, "No results.")
+            self.scr_mgr.write(self._HEADER_H, 0, "No results.")
             return
 
         for visible_idx, original_idx in enumerate(self.active_indices):
-            if screen_row >= body_height + body_top:
+            if body_height <= 0:
                 return
 
             result = self.results[original_idx]
 
             item_height = self._item_height(original_idx)
 
-            if virtual_row + item_height <= self.scroll:
+            if virtual_row < self.scroll:
                 virtual_row += item_height
                 continue
 
-            self._safe_add(
-                screen_row,
-                0,
-                f" {result.rule_id:<{self.ID_W}}",
-                curses.A_BOLD
-                | (curses.A_REVERSE if visible_idx == self.selected else 0),
+            lines: list[tuple] = []
+            lines.append(
+                (
+                    screen_row,
+                    0,
+                    f" {result.rule_id:<{self._ID_W}}",
+                    curses.A_BOLD
+                    | (curses.A_REVERSE if visible_idx == self.selected else 0),
+                )
             )
-            self._safe_add(
-                screen_row,
-                self.ID_W,
-                f" {result.title[: self.TITLE_W]:<{self.TITLE_W}}",
-                curses.A_REVERSE if visible_idx == self.selected else 0,
+            lines.append(
+                (
+                    screen_row,
+                    self._ID_W,
+                    f" {result.title[: self._TITLE_W]:<{self._TITLE_W}}",
+                    curses.A_REVERSE if visible_idx == self.selected else 0,
+                )
             )
-            self._safe_add(
-                screen_row,
-                self.ID_W + self.TITLE_W,
-                " PASS " if result.passed else " FAIL ",
-                self._status_attr(result.passed)
-                | (curses.A_REVERSE if visible_idx == self.selected else 0),
+            lines.append(
+                (
+                    screen_row,
+                    self._ID_W + self._TITLE_W,
+                    " PASS " if result.passed else " FAIL ",
+                    self._status_attr(result.passed)
+                    | (curses.A_REVERSE if visible_idx == self.selected else 0),
+                )
             )
             screen_row += 1
 
@@ -187,30 +182,32 @@ class ResultViewer:
 
             if self.expanded.get(original_idx, False):
                 detail_lines.append(f"    Message  : {result.message}")
+                # if result.expected is not None:
+                detail_lines.append(f"    Expected : {result.expected}")
+                # if result.found is not None:
+                detail_lines.append(f"    Found    : {result.found}")
 
-                if result.expected is not None:
-                    detail_lines.append(f"    Expected : {result.expected}")
-
-                if result.found is not None:
-                    detail_lines.append(f"    Found    : {result.found}")
-
-            _, w = self.stdscr.getmaxyx()
             for line in detail_lines:
-                if screen_row >= body_height + body_top:
-                    return
-                self._safe_add(
-                    screen_row,
-                    0,
-                    f"{line:<{w}}",
-                    curses.A_REVERSE if visible_idx == self.selected else 0,
+                lines.append(
+                    (
+                        screen_row,
+                        0,
+                        f"{line:<{w}}",
+                        curses.A_REVERSE if visible_idx == self.selected else 0,
+                    )
                 )
                 screen_row += 1
 
+            for line in lines:
+                if line[0] >= self._HEADER_H + body_height:
+                    return
+                self.scr_mgr.write(*line, trunc=self._TITLE_W)
+
             virtual_row += item_height
 
-    def draw(self) -> None:
+    def scr_update(self) -> None:
         self.stdscr.erase()
-        h, w = self.stdscr.getmaxyx()
+        _, w = self.stdscr.getmaxyx()
 
         passed = sum(r.passed for r in self.results)
         failed = len(self.results) - passed
@@ -218,20 +215,16 @@ class ResultViewer:
         left = f"Passed / Failed / Total : {passed} / {failed} / {len(self.results)}"
         right = "Filter: FAILED ONLY" if self.failed_only else "Filter: ALL"
 
-        self._safe_add(0, 0, left)
-        self._safe_add(0, max(0, w - len(right)), right)
-        self._safe_add(1, 0, "-" * w)
+        self.scr_mgr.write(0, 0, left)
+        self.scr_mgr.write(0, max(0, w - len(right)), right)
+        self.scr_mgr.h_sep(1, sep="═")
 
-        self.STATUS_W = 6
-        self.TITLE_W = w - self.ID_W - self.STATUS_W  # - 2
-        header = (
-            f"{'ID':<{self.ID_W}}{'TITLE':^{self.TITLE_W}}{'STATUS':>{self.STATUS_W}}"
-        )
+        header = f"{'ID':<{self._ID_W}}{'TITLE':^{self._TITLE_W}}{'STATUS':>{self._STATUS_W}}"
 
-        self._safe_add(2, 0, header)
-        self._safe_add(3, 0, "-" * w)
+        self.scr_mgr.write(2, 0, header)
+        self.scr_mgr.h_sep(3)
 
-        self._draw_body()
+        self._update_body()
 
         footer = (
             "j/k ↑↓ move | Space expand | "
@@ -239,10 +232,7 @@ class ResultViewer:
             "q: exit"
         )
 
-        self._safe_add(h - 2, 0, "-" * w)
-        self._safe_add(h - 1, 0, f"{footer:^{w}}")
-
-        self.stdscr.refresh()
+        self.scr_mgr.footer(footer)
 
     # Input
 
@@ -308,11 +298,14 @@ class ResultViewer:
 
     def run(self, stdscr: curses.window) -> None:
         self.stdscr = stdscr
-        self._init_curses()
+        self.scr_mgr = tui.ScreenManager(stdscr)
+        self.scr_mgr.init_curses()
+
+        self._init_colors()
         self._update_filter()
 
         while True:
-            self.draw()
+            self.scr_update()
 
             key = self.stdscr.getch()
 
