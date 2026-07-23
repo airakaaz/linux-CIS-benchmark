@@ -1,5 +1,6 @@
 import curses
-from typing import Type
+from enum import Enum
+from typing import Callable, Type
 
 from core.rule import CISRule
 from utils import tui
@@ -15,6 +16,9 @@ class Module:
         self.name = name
         self._subModules = subMods if subMods else []
         self._rules = rules if rules else []
+        # defined only for parent module
+        self.levels: dict[str, Enum]
+        self.filter: Callable
 
     @property
     def rules(self) -> list[Type[CISRule]]:

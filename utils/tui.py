@@ -1,4 +1,5 @@
 import curses
+from typing import Callable
 
 h_sep = "─"
 
@@ -46,3 +47,56 @@ class ScreenManager:
     def h_sep(self, h: int, *, sep=h_sep):
         _, w = self.stdscr.getmaxyx()
         self.write(h, 0, sep * w)
+
+
+class SelectorMenu:
+    def __init__(self, title: str, opts: dict):
+        self.title = title
+        self.opts = opts
+        self.names = list(self.opts.keys())
+
+        self.cursor = 0
+
+    def _draw(self):
+        self.stdscr.erase()
+
+        h, w = self.stdscr.getmaxyx()
+
+        start_y = h // 2 - (len(self.names) + 1) // 2
+
+        self.scrmgr.write(0, 0, f"{self.title:^{w}}")
+        self.scrmgr.h_sep(1)
+
+        for i, name in enumerate(self.names):
+            attr = curses.A_REVERSE if i == self.cursor else 0
+            self.scrmgr.write(start_y + i, 0, f"{name:^{w}}", attr)
+
+        self.scrmgr.footer("j/k ↑↓ move  |  Enter: pick  |  q/Esc: cancel")
+
+        self.stdscr.refresh()
+
+    def run(self, stdscr: curses.window):
+        self.stdscr = stdscr
+        self.scrmgr = ScreenManager(stdscr)
+
+        while True:
+            self._draw()
+
+            key = self.stdscr.getch()
+
+            if key in (curses.KEY_UP, ord("k")):
+                self.cursor -= 1
+                if self.cursor < 0:
+                    self.cursor = len(self.names) - 1
+
+            elif key in (curses.KEY_DOWN, ord("j")):
+                self.cursor += 1
+                if self.cursor >= len(self.names):
+                    self.cursor = 0
+
+            elif key in (10, 13, curses.KEY_ENTER):
+                name = self.names[self.cursor]
+                return self.opts[name]
+
+            elif key in (27, ord("q")):
+                return None

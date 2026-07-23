@@ -1,5 +1,7 @@
+from typing import Callable, Type
 import curses
 from dataclasses import dataclass
+from enum import Enum
 from core.module import Module
 from core.result import ScanResult
 from core.rule import CISRule, Mode
@@ -31,7 +33,7 @@ class ScanScreen:
         self.rows.append(_Progress(module, total))
         self.redraw()
 
-    def update(self, rule: CISRule):
+    def update(self, rule: Type[CISRule]):
         p = self.rows[-1]
         p.current += 1
         self.done_rules += 1
@@ -127,12 +129,13 @@ class ScanScreen:
 
 class ScanEngine:
     def __init__(self):
-        self._modules = []
+        self._modules: list[Module] = []
 
     def register(self, *modules: Module):
         self._modules.extend(modules)
 
-    def run(self, stdscr: curses.window):
+    def run(self, stdscr: curses.window, filter: Callable, lvl: Enum):
+        self._modules = filter(self._modules, lvl)
         results: list[ScanResult] = []
         screen = ScanScreen(stdscr)
         screen.total_rules = sum(len(m.rules) for m in self._modules)
@@ -152,5 +155,5 @@ class ScanEngine:
                                 message=f"check failed due to Exception: {e}",
                             )
                         )
-                screen.update(rule)
+                    screen.update(rule)
         return results
