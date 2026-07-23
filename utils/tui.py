@@ -30,7 +30,7 @@ class ScreenManager:
         if available <= 0:
             return
 
-        if trunc:
+        if trunc and len(text) >= trunc:
             text = text[: trunc - 1] + "…"
 
         try:

@@ -163,8 +163,9 @@ class ResultViewer:
                 (
                     screen_row,
                     self._ID_W,
-                    f" {result.title[: self._TITLE_W]:<{self._TITLE_W}}",
+                    f" {result.title}",
                     curses.A_REVERSE if visible_idx == self.selected else 0,
+                    self._TITLE_W,
                 )
             )
             lines.append(
@@ -201,7 +202,7 @@ class ResultViewer:
             for line in lines:
                 if line[0] >= self._HEADER_H + body_height:
                     return
-                self.scr_mgr.write(*line, trunc=self._TITLE_W)
+                self.scr_mgr.write(*line)
 
             virtual_row += item_height
 
@@ -233,8 +234,6 @@ class ResultViewer:
         )
 
         self.scr_mgr.footer(footer)
-
-    # Input
 
     def _move_up(self) -> None:
         if self.selected > 0:
