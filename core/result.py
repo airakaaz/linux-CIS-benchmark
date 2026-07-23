@@ -1,7 +1,7 @@
 import curses
 from dataclasses import dataclass
 
-from utils import tui
+from utils import tui, export
 
 
 @dataclass(slots=True)
@@ -328,6 +328,11 @@ class ResultViewer:
 
             elif key in (ord("h"), curses.KEY_LEFT):
                 self._collapse()
+
+            elif key in (ord("s"), ord("S")):
+                exporter = tui.SelectorMenu("Save As", export.FORMATS).run(self.stdscr)
+                if exporter:
+                    exporter(self.results)
 
             elif key in (ord("f"), ord("F"), 9):
                 self._toggle_filter()
