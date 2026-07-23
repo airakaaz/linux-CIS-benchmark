@@ -33,7 +33,11 @@ class NoSystemInformationRule(CISRule):
             patterns.append(rf"\b{re.escape(os_id)}\b")
 
         forbidden = rf"(?:{'|'.join(patterns)})"
-        matched = filesystem.contains_regex(paths, forbidden)
+        matched = filesystem.contains_regex(
+            paths,
+            forbidden,
+            flags=re.MULTILINE | re.IGNORECASE,
+        )
 
         return ScanResult(
             rule_id=self.rule_id,
@@ -86,8 +90,6 @@ class RequireFileContentRule(CISRule):
             ),
             expected=f"pattern {self._PATTERN} in ({', '.join(self._PATHS)})",
             found=(
-                f"matched in ({', '.join(matched)})"
-                if matched
-                else "no matching files"
+                f"matched in ({', '.join(matched)})" if matched else "no matching files"
             ),
         )

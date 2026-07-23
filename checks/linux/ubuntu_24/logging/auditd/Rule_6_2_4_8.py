@@ -12,4 +12,5 @@ class Rule_6_2_4_8(AuditdAccessRule):
             paths=list(AUDIT_TOOLS),
             max_mode=0o755,
             expected="audit tools mode 0755 or more restrictive",
+            missing_is_failure=False,
         )

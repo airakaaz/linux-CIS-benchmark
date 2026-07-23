@@ -34,7 +34,9 @@ def persistent_rules_match(
     regex = re.compile(pattern, flags=re.MULTILINE)
 
     try:
-        files = sorted(directory.glob("*.rules"))
+        # The CIS audit uses `grep -qr`, so include every regular file
+        # recursively rather than only top-level *.rules files.
+        files = sorted(path for path in directory.rglob("*") if path.is_file())
     except OSError:
         return False
 
@@ -86,17 +88,30 @@ def login_uid_min() -> int | None:
 def privileged_files() -> list[Path]:
     from utils.command import run
 
-    result = run("findmnt -n -l -k")
+    # Match the CIS audit's `findmnt -it ...` filter.  Filesystems listed as
+    # `nodev` in /proc/filesystems are not real storage filesystems and must
+    # not be searched for privileged executables.
+    nodev_filesystems: set[str] = set()
+    try:
+        for line in Path("/proc/filesystems").read_text(errors="ignore").splitlines():
+            fields = line.split()
+            if len(fields) >= 2 and fields[0] == "nodev":
+                nodev_filesystems.add(fields[1])
+    except OSError:
+        return []
+
+    result = run("findmnt -n -l -k -o TARGET,FSTYPE,OPTIONS")
     if not result.ok:
         return []
 
     files: list[Path] = []
     for line in result.stdout.splitlines():
-        fields = line.split()
-        if len(fields) < 5:
+        fields = line.split(None, 2)
+        if len(fields) != 3:
             continue
-        mountpoint = fields[0]
-        options = fields[-1]
+        mountpoint, filesystem_type, options = fields
+        if filesystem_type in nodev_filesystems:
+            continue
         if "noexec" in options or "nosuid" in options:
             continue
         found = run(

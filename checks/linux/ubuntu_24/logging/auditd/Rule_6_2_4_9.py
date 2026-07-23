@@ -12,4 +12,5 @@ class Rule_6_2_4_9(AuditdAccessRule):
             paths=list(AUDIT_TOOLS),
             valid_owners={0},
             expected="audit tools owned by root",
+            missing_is_failure=False,
         )
