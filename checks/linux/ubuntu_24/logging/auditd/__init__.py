@@ -47,6 +47,7 @@ from .Rule_6_2_4_7 import Rule_6_2_4_7
 from .Rule_6_2_4_8 import Rule_6_2_4_8
 from .Rule_6_2_4_9 import Rule_6_2_4_9
 from .Rule_6_2_4_10 import Rule_6_2_4_10
+from .Rule_6_2_3_30 import Rule_6_2_3_30
 
 rules = [
     Rule_6_2_1_1,
@@ -96,6 +97,7 @@ rules = [
     Rule_6_2_4_8,
     Rule_6_2_4_9,
     Rule_6_2_4_10,
+    Rule_6_2_3_30,
 ]
 
 auditd = Module(name="auditd", rules=rules)

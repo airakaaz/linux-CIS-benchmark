@@ -12,6 +12,7 @@ from .Rule_7_1_9 import Rule_7_1_9
 from .Rule_7_1_10 import Rule_7_1_10
 from .Rule_7_1_11 import Rule_7_1_11
 from .Rule_7_1_12 import Rule_7_1_12
+from .Rule_7_1_13 import Rule_7_1_13
 
 rules = [
     Rule_7_1_1,
@@ -26,6 +27,7 @@ rules = [
     Rule_7_1_10,
     Rule_7_1_11,
     Rule_7_1_12,
+    Rule_7_1_13,
 ]
 
 filesystem = Module(name="filesystem", rules=rules)

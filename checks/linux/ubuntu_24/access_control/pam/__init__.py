@@ -25,6 +25,7 @@ from .Rule_5_3_3_4_1 import Rule_5_3_3_4_1
 from .Rule_5_3_3_4_2 import Rule_5_3_3_4_2
 from .Rule_5_3_3_4_3 import Rule_5_3_3_4_3
 from .Rule_5_3_3_4_4 import Rule_5_3_3_4_4
+from .Rule_5_3_3_2_3 import Rule_5_3_3_2_3
 
 rules = [
     Rule_5_3_1_1,
@@ -52,6 +53,7 @@ rules = [
     Rule_5_3_3_4_2,
     Rule_5_3_3_4_3,
     Rule_5_3_3_4_4,
+    Rule_5_3_3_2_3,
 ]
 
 pam = Module(name="pam", rules=rules)

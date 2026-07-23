@@ -22,6 +22,7 @@ from .Rule_2_1_20 import Rule_2_1_20
 from .Rule_2_1_21 import Rule_2_1_21
 from .Rule_2_1_22 import Rule_2_1_22
 from .Rule_2_1_23 import Rule_2_1_23
+from .Rule_2_1_4 import Rule_2_1_4
 
 rules = [
     Rule_2_1_1,
@@ -46,6 +47,7 @@ rules = [
     Rule_2_1_21,
     Rule_2_1_22,
     Rule_2_1_23,
+    Rule_2_1_4,
 ]
 
 server = Module(name="server", rules=rules)

@@ -16,6 +16,7 @@ from .Rule_5_4_2_8 import Rule_5_4_2_8
 from .Rule_5_4_3_1 import Rule_5_4_3_1
 from .Rule_5_4_3_2 import Rule_5_4_3_2
 from .Rule_5_4_3_3 import Rule_5_4_3_3
+from .Rule_5_4_1_2 import Rule_5_4_1_2
 
 rules = [
     Rule_5_4_1_1,
@@ -34,6 +35,7 @@ rules = [
     Rule_5_4_3_1,
     Rule_5_4_3_2,
     Rule_5_4_3_3,
+    Rule_5_4_1_2,
 ]
 
 users = Module(name="users", rules=rules)
