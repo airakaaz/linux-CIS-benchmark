@@ -3,7 +3,7 @@ import curses
 from dataclasses import dataclass
 from enum import Enum
 from core.module import Module
-from core.result import ScanResult
+from core.result import ResultStatus, ScanResult
 from core.rule import CISRule, Mode
 from utils import tui
 
@@ -143,17 +143,40 @@ class ScanEngine:
         for mod in self._modules:
             screen.start(mod, len(mod.rules))
             for rule in mod.rules:
-                if rule.mode == Mode.AUTOMATIC:
+                if rule.mode == Mode.MANUAL:
+                    results.append(
+                        ScanResult(
+                            rule_id=rule.rule_id,
+                            title=rule.title,
+                            passed=False,
+                            status=ResultStatus.MANUAL,
+                            message=getattr(
+                                rule,
+                                "_MANUAL_MESSAGE",
+                                "manual check; not executed",
+                            ),
+                            expected=getattr(rule, "_MANUAL_EXPECTED", None),
+                            found="not evaluated",
+                        )
+                    )
+                else:
                     try:
-                        results.append(rule().check())
+                        result = rule().check()
+                        result.status = (
+                            ResultStatus.PASS
+                            if result.passed
+                            else ResultStatus.FAIL
+                        )
+                        results.append(result)
                     except Exception as e:
                         results.append(
                             ScanResult(
                                 rule_id=rule.rule_id,
                                 title=rule.title,
                                 passed=False,
+                                status=ResultStatus.ERROR,
                                 message=f"check failed due to Exception: {e}",
                             )
                         )
-                    screen.update(rule)
+                screen.update(rule)
         return results

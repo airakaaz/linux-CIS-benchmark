@@ -2,6 +2,15 @@ import json
 from dataclasses import asdict
 from datetime import datetime
 from pathlib import Path
+from enum import Enum
+
+
+def _serialize_result(result) -> dict:
+    data = asdict(result)
+    for key, value in data.items():
+        if isinstance(value, Enum):
+            data[key] = value.value
+    return data
 
 
 def save_json(results: list) -> Path:
@@ -13,7 +22,7 @@ def save_json(results: list) -> Path:
 
     with path.open("w", encoding="utf-8") as f:
         json.dump(
-            [asdict(r) for r in results],
+            [_serialize_result(r) for r in results],
             f,
             indent=4,
             ensure_ascii=False,
@@ -31,6 +40,8 @@ def save_text(results: list) -> Path:
 
     with path.open("w", encoding="utf-8") as f:
         for r in results:
+            status = r.status.value if isinstance(r.status, Enum) else r.status
+            f.write(f"status: {status}\n")
             f.write(f"rule id: {r.rule_id}")
             f.write(f"title: {r.title}")
             f.write(f"message: {r.message}")

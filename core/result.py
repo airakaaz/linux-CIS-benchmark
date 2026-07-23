@@ -1,7 +1,15 @@
 import curses
 from dataclasses import dataclass
+from enum import Enum
 
 from utils import tui, export
+
+
+class ResultStatus(Enum):
+    PASS = "PASS"
+    FAIL = "FAIL"
+    ERROR = "ERROR"
+    MANUAL = "MANUAL"
 
 
 @dataclass(slots=True)
@@ -12,11 +20,18 @@ class ScanResult:
     message: str
     expected: str | None = None
     found: str | None = None
+    status: ResultStatus | None = None
+
+    def __post_init__(self) -> None:
+        if self.status is None:
+            self.status = ResultStatus.PASS if self.passed else ResultStatus.FAIL
 
 
 class ResultViewer:
     COLOR_PASS = 1
     COLOR_FAIL = 2
+    COLOR_ERROR = 3
+    COLOR_MANUAL = 4
 
     def __init__(self, results: list[ScanResult]) -> None:
         self.results = results
@@ -28,12 +43,16 @@ class ResultViewer:
         self.scroll = 0
 
         self.active_indices: list[int] = []
-        self.failed_indices = [i for i, r in enumerate(self.results) if not r.passed]
+        self.failed_indices = [
+            i
+            for i, r in enumerate(self.results)
+            if r.status in (ResultStatus.FAIL, ResultStatus.ERROR)
+        ]
         self.all_indices = list(range(len(self.results)))
 
         self._HEADER_H = 4
         self._ID_W = max(len(r.rule_id) for r in results) + 2
-        self._STATUS_W = 6
+        self._STATUS_W = 8
 
     @property
     def _TITLE_W(self) -> int:
@@ -51,6 +70,8 @@ class ResultViewer:
         if curses.has_colors():
             curses.init_pair(self.COLOR_PASS, curses.COLOR_GREEN, -1)
             curses.init_pair(self.COLOR_FAIL, curses.COLOR_RED, -1)
+            curses.init_pair(self.COLOR_ERROR, curses.COLOR_YELLOW, -1)
+            curses.init_pair(self.COLOR_MANUAL, curses.COLOR_CYAN, -1)
 
     # Filtering
 
@@ -117,14 +138,17 @@ class ResultViewer:
 
     # Drawing
 
-    def _status_attr(self, passed: bool) -> int:
+    def _status_attr(self, status: ResultStatus) -> int:
         if not curses.has_colors():
             return curses.A_BOLD
 
-        return (
-            curses.color_pair(self.COLOR_PASS if passed else self.COLOR_FAIL)
-            | curses.A_BOLD
-        )
+        colors = {
+            ResultStatus.PASS: self.COLOR_PASS,
+            ResultStatus.FAIL: self.COLOR_FAIL,
+            ResultStatus.ERROR: self.COLOR_ERROR,
+            ResultStatus.MANUAL: self.COLOR_MANUAL,
+        }
+        return curses.color_pair(colors[status]) | curses.A_BOLD
 
     def _update_body(self) -> None:
         body_height = self._BODY_H
@@ -172,8 +196,8 @@ class ResultViewer:
                 (
                     screen_row,
                     self._ID_W + self._TITLE_W,
-                    " PASS " if result.passed else " FAIL ",
-                    self._status_attr(result.passed)
+                    f" {result.status.value} ",
+                    self._status_attr(result.status)
                     | (curses.A_REVERSE if visible_idx == self.selected else 0),
                 )
             )
@@ -210,10 +234,18 @@ class ResultViewer:
         self.stdscr.erase()
         _, w = self.stdscr.getmaxyx()
 
-        passed = sum(r.passed for r in self.results)
-        failed = len(self.results) - passed
+        counts = {
+            status: sum(r.status == status for r in self.results)
+            for status in ResultStatus
+        }
 
-        left = f"Passed / Failed / Total : {passed} / {failed} / {len(self.results)}"
+        left = (
+            f"Total:{len(self.results)} | "
+            f"Passed:{counts[ResultStatus.PASS]} | "
+            f"Failed:{counts[ResultStatus.FAIL]} | "
+            f"Error:{counts[ResultStatus.ERROR]} | "
+            f"Manual:{counts[ResultStatus.MANUAL]}"
+        )
         right = "Filter: FAILED ONLY" if self.failed_only else "Filter: ALL"
 
         self.scr_mgr.write(0, 0, left)
